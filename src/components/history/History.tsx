@@ -4,7 +4,7 @@ import { useAccount } from 'wagmi';
 import Th from '../tables/Th';
 import Td from '../tables/Td';
 
-import { GET_TOKEN_HOLDERS, GET_TRANSACTIONS } from '../TVChartContainer/bitquery';
+import { GET_ALL_TRANSACTIONS, GET_TOKEN_HOLDERS, GET_TRANSACTIONS } from '../TVChartContainer/bitquery';
 import { callQuery } from '../../api/bitqueryApi';
 import { Link } from 'react-router-dom';
 import { formatAddress } from '../../utils/normal';
@@ -33,6 +33,7 @@ const Transactions = ({ transactions }: any) => {
                     </Th>
                     <Th>Hash</Th>
                     <Th>Time</Th>
+                    <Th>From</Th>
                     <Th>To</Th>
                     <Th>Gas</Th>
                     <Th>Status</Th>
@@ -47,6 +48,7 @@ const Transactions = ({ transactions }: any) => {
                             </Td>
                             <Td><Link className="hover:underline" to={`https://polygonscan.com/tx/${transaction.hash}`}>{formatAddress(transaction.hash)}</Link></Td>
                             <Td>{transaction.block.timestamp.time}</Td>
+                            <Td><Link className="hover:underline" to={`https://polygonscan.com/address/${transaction.sender.address}`}>{formatAddress(transaction.sender.address)}</Link></Td>
                             <Td><Link className="hover:underline" to={`https://polygonscan.com/address/${transaction.address.address}`}>{formatAddress(transaction.address.address)}</Link></Td>
                             <Td>{transaction.gasValue}</Td>
                             <Td _className="items-center flex gap-2 justify-center">
@@ -97,10 +99,36 @@ const History = () => {
 
     const [activeTab, setActiveTab] = useState(true);
     const [tokenHolders, setTokenHolders] = useState([]);
-    const [transactions, setTransactions] = useState([])
+    const [transactions, setTransactions] = useState<any>([]);
 
-    const getTransactionHistory = async (address: string) => {
+    const getTransaction = async (address: string) => {
         const query = GET_TRANSACTIONS(address, 10, 0);
+        const result = await callQuery('v1', query);
+
+        console.log('result = ', result);
+        if (result?.data?.data?.ethereum?.transactions) {
+            const _transactions = result?.data?.data?.ethereum?.transactions;
+            const mergeTransactions = [..._transactions.sender, ..._transactions.receiver].sort((a: any, b: any) => {
+                if (a.block.timestamp.time > b.block.timestamp.time) {
+                    return 1
+                } else {
+                    return -1
+                }
+            }).slice(0, 10);
+
+            if (mergeTransactions) {
+                setTransactions(mergeTransactions);
+            }
+        }
+    }
+
+    const getAllTransactions = async () => {
+        const now = new Date();
+        const to = now.toISOString();
+        now.setDate(now.getDate() - 1);
+        const from = now.toISOString();
+
+        const query = GET_ALL_TRANSACTIONS(from, to, 10, 0);
         const result = await callQuery('v1', query);
 
         console.log('result = ', result);
@@ -123,8 +151,10 @@ const History = () => {
             getTokenHolders();
         } else {
             if (address) {
-                getTransactionHistory('0xad8fbf8291a5b1d768f26a770a82308840953f77');
+                getTransaction('0xad8fbf8291a5b1d768f26a770a82308840953f77');
                 // getTransactionHistory(address);
+            } else {
+                getAllTransactions();
             }
         }
     }, [activeTab, address])

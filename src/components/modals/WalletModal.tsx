@@ -5,7 +5,7 @@ export function WalletModal({close}: any) {
   const { connectors, connect } = useConnect();
 
   return (
-    <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-black/20">
       <div className="absolute p-4 w-full max-w-md max-h-full top-[15%] left-[50%] -translate-x-[50%]">
         <div className="relative bg-white rounded-lg shadow">
           <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
@@ -19,7 +19,7 @@ export function WalletModal({close}: any) {
               <span className="sr-only">Close modal</span>
             </button>
           </div>
-          <div className="p-4 md:p-5 flex flex-col w-full">
+          <div className="p-4 md:p-5 flex flex-col w-full gap-1">
             {
               connectors.map((connector) => (
                 connector.type !== 'injected' && 
@@ -54,7 +54,7 @@ function WalletOption({
   }, [connector])
 
   return (
-    <button className="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" disabled={!ready} onClick={onClick}>
+    <button className="text-[#3B9CB7] hover:text-white border border-[#3B9CB7] hover:bg-[#3B9CB7] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-5 py-2.5 text-center me-2 mb-2" disabled={!ready} onClick={onClick}>
       {connector.name}
     </button>
   )

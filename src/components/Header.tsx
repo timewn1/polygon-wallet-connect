@@ -62,10 +62,13 @@ const Header = () => {
     }, [address])
 
     return (
-        <div className="h-[60px] shadow-md fixed w-screen top-0 left-0 bg-white">
+        <div className="h-[60px] shadow-md fixed w-screen top-0 left-0 bg-gradient-to-r from-[#1A846D] to-[#3B9CB7]">
             <Container>
                 <div className="flex justify-between items-center h-full">
-                    <div className="text-2xl font-[700] text-red-500">LOGO</div>
+                    <div className="text-2xl font-[700] text-white flex justify-start gap-4 items-center">
+                        <span className="hover:cursor-pointer">Smart Dangol</span>
+                        <img className="h-[50px] hover:cursor-pointer" src='/img/google-play.png' alt='' />
+                    </div>
                     <div>
                         <ConnectButton text={!address ? 'Connect Wallet' : 'Disconnect'} handleClick={handleClick} />
                     </div>

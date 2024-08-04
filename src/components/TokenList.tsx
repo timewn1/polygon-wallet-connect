@@ -41,7 +41,7 @@ const TokenList = () => {
     }
 
     return(
-        <div className='px-5 py-4 overflow-auto max-h-[600px]'>
+        <div className='px-3 py-4 overflow-auto max-h-[600px]'>
             {
                 tokens.map((i: any, ind: number) => (
                     openId === ind ? 
@@ -70,7 +70,7 @@ const TokenList = () => {
                             <SpartChart data = {[5, 10, 3,12,42,18,22, 5, 20]} bgcolor="green" width = {150} height = {40}/>
                         </div>
                     </div> :
-                    <div className={`w-full py-3 px-5 flex justify-between items-center hover:cursor-pointer ${tokens.length - 1 === ind ? '' : 'border-b'}`} key={ind} onClick={() => {handleOpen(i, ind)}}>
+                    <div className={`w-full py-3 px-5 flex justify-between items-center hover:cursor-pointer`} key={ind} onClick={() => {handleOpen(i, ind)}}>
                         <div className="w-full flex gap-2">
                             {/* <img src={i.img} alt="logo" width={43} height={43}/> */}
                             <div className="w-full flex gap-4 items-center justify-between">

@@ -30,10 +30,16 @@ const Home = () => {
             <Container>
                 <div className='flex pt-10 text-center pb-6'>
                     <div className="w-[25%] min-w-[380px]">
-                        <h1 className='text-4xl	mt-[80px]'>$ {balance.toFixed(2)}</h1>
-                        <p className='text-[1em] text-slate-400	'>{formatAddress(addressValue)}</p>
+                        {
+                            address ? <>
+                                <h1 className='text-4xl	mt-[80px]'>$ {balance.toFixed(2)}</h1>
+                                <p className='text-[1em] text-slate-400	'>{formatAddress(addressValue)}</p>   
+                            </> : 
+                            <p className="mt-8">No connected</p>
+                        }
                         <div className='w-[100] flex justify-center'>
-                            <button className='flex items-center gap-2 border rounded-[1em] w-[10em] px-4 py-3 mt-[2em] justify-between'>
+                            <button className='flex items-center gap-2 border rounded-[1em] w-[10em] px-4 py-3 mt-[2em] justify-between hover:bg-black/[0.02]'>
+                                <img src='/img/swap.png' className='w-5 h-auto' />
                                 Buy SMD
                                 <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"></path></svg>
                             </button>
@@ -43,7 +49,7 @@ const Home = () => {
                             <p className='text-slate-400'>The crypto market cap</p>
                             <p className='text-slate-500'>52.19T</p>
                         </div> */}
-                        <div className='bg-neutral-100 rounded-[1em] mt-5'>
+                        <div className='bg-[#f8f7f5] rounded-[1em] mt-5'>
                            <TokenList />
                         </div>
                     </div>

@@ -128,7 +128,7 @@ export const GET_TRANSACTIONS = (address, limit, offset) => {
   return `
     {
       ethereum(network: matic) {
-        transactions(
+        sender: transactions(
           options: {desc: "block.timestamp.time", limit: ${limit}, offset: ${offset}}
           txSender: {is: "${address}"}
         ) {
@@ -139,27 +139,62 @@ export const GET_TRANSACTIONS = (address, limit, offset) => {
             height
           }
           success
+          gasValue
+          hash
+          sender {
+            address
+          }
           address: to {
             address
-            annotation
-            smartContract {
-              protocolType
-              contractType
-              currency {
-                name
-                symbol
-              }
+          }
+        }
+        receiver: transactions(
+          options: {desc: "block.timestamp.time", limit: ${limit}, offset: ${offset}}
+          txTo: {is: "${address}"}
+        ) {
+          block {
+            timestamp {
+              time(format: "%Y-%m-%d %H:%M:%S")
             }
+            height
           }
+          success
           gasValue
-          gas_value_usd: gasValue(in: USD)
-          gasCurrency {
-            symbol
-          }
           hash
-          currency {
+          sender {
             address
-            symbol
+          }
+          address: to {
+            address
+          }
+        }
+      }
+    }
+  `
+}
+
+export const GET_ALL_TRANSACTIONS = (from, to, limit, offset) => {
+  return `
+    {
+      ethereum(network: matic) {
+        transactions(
+          options: {desc: "block.timestamp.time", limit: ${limit}, offset: ${offset}}
+          date: {since: "${from}", till: "${to}"}
+        ) {
+          block {
+            timestamp {
+              time(format: "%Y-%m-%d %H:%M:%S")
+            }
+            height
+          }
+          success
+          gasValue
+          hash
+          sender {
+            address
+          }
+          address: to {
+            address
           }
         }
       }

@@ -81,7 +81,6 @@ export default {
     first,
   ) => {
     try {
-      console.log(getResolutionValue(resolution));
       const tokens = symbolInfo.ticker.split(",");
       const data = JSON.stringify({
         query: Bitquery.GET_COIN_BARS(tokens[0] || "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", tokens[1] || "0xc2132D05D31c914a87C6611C10748AEb04B58e8F", new Date(from*1000).toISOString() , new Date(to*1000).toISOString(), getResolutionValue(resolution) ),
@@ -96,7 +95,6 @@ export default {
         data: data,
       }
       const response2 = await axios(config)
-      console.log(response2);
       const trades = response2.data.data.ethereum.dexTrades;
 
       if (trades && trades.length) {
@@ -132,8 +130,6 @@ export default {
     onResetCacheNeededCallback,
   ) => {
     console.log('[subscribeBars]: Method call with subscriberUID:', subscribeID);
-    console.log('resolution:', resolution);
-    console.log('lastTime: ', lastTime)
 
     addSubscribe(subscribeID, lastTime, resolution, onRealtimeCallback);
   },
