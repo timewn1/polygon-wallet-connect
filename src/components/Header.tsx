@@ -69,6 +69,7 @@ const Header = () => {
                         <span className="hover:cursor-pointer">Smart Dangol</span>
                         <img className="h-[50px] hover:cursor-pointer" src='/img/google-play.png' alt='' />
                     </div>
+                    <div className="text-[24px] font-bold text-white">Wallet Dashboard</div>
                     <div>
                         <ConnectButton text={!address ? 'Connect Wallet' : 'Disconnect'} handleClick={handleClick} />
                     </div>
