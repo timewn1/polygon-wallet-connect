@@ -1,4 +1,4 @@
-const API_KEY = 'BQY8Ccfxw8k0x69MtGNIJb1cFuR7qnFP';
+const API_KEY = 'BQY9E9fPMVK8GNWijhWqsAo6WauDcRQ5';
 
 export async function fetchMaticPrices(baseCurrency: string, quoteCurrency: string) {
     const endTime = Math.floor(Date.now() / 1000);

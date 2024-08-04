@@ -3,6 +3,7 @@ import { Ether } from '@uniswap/sdk-core'
 import './index.css'
 import { widget } from '../../charting_library';
 import Datafeed from './datafeed'; 
+import { connectStream, disconnectStream } from './stream';
 
 const TVChartContainer = ({base, quote}: any) => {
 	const defaultProps = {
@@ -21,6 +22,14 @@ const TVChartContainer = ({base, quote}: any) => {
 		fullscreen: false,
 		autosize: true
 	};
+
+	React.useEffect(() => {
+		// connectStream();
+
+		return () => {
+			disconnectStream();
+		}
+	}, [])
 
 	React.useEffect(()=>{
 		const widgetOptions = {
@@ -52,7 +61,7 @@ const TVChartContainer = ({base, quote}: any) => {
 		tvWidget.onChartReady(() => {
 			tvWidget.hideAllDrawingTools()
 			tvWidget.headerReady().then(() => {
-				tvWidget.chart().setChartType(3)
+				tvWidget.chart().setChartType(1)
 				
 				// const button = tvWidget.createButton();
 				// button.setAttribute('title', 'Click to show a notification popup');

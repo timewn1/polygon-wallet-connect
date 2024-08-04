@@ -1,11 +1,16 @@
 import axios from 'axios'
-import * as Bitquery from './bitquery'
+
+import * as Bitquery from './bitquery';
+import { addSubscribe, deleteSubscribe } from './stream';
+
+import { getResolutionValue } from '../../utils/chart';
 
 const configurationData = {
   supported_resolutions: ['1', '5', '15', '30', '60', '240', '1D', '1W', '1M'],
 }
 
-const API_KEY = 'BQY8Ccfxw8k0x69MtGNIJb1cFuR7qnFP';
+const API_KEY = 'BQY9E9fPMVK8GNWijhWqsAo6WauDcRQ5';
+let lastTime = '';
 
 export default {
   // This method is used by the Charting Library to get a configuration of your datafeed
@@ -23,7 +28,7 @@ export default {
   ) => {
     const tokens = symbolName.split(",");
     const data = JSON.stringify({
-      query: Bitquery.GET_COIN_INFO(tokens[0] || "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", tokens[1] || "0xc2132D05D31c914a87C6611C10748AEb04B58e8F"),
+      query: Bitquery.GET_COIN_INFO(tokens[0] || "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", tokens[1] || "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"),
       variables: {
         tokenAddress: symbolName,
       },
@@ -38,12 +43,10 @@ export default {
       },
       data: data,
     }
-    console.log(config)
     const response = await axios(config)
 
     const coin = response.data.data.ethereum.dexTrades?.[0]?.baseCurrency
     const quoteCoin = response.data.data.ethereum.dexTrades?.[0]?.quoteCurrency
-
 
     if (!coin) {
       // onResolveErrorCallback()
@@ -78,18 +81,10 @@ export default {
     first,
   ) => {
     try {
-      if (resolution === '1D') {
-        resolution = 1440
-      }
+      console.log(getResolutionValue(resolution));
       const tokens = symbolInfo.ticker.split(",");
       const data = JSON.stringify({
-        query: Bitquery.GET_COIN_BARS(tokens[0] || "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", tokens[1] || "0xc2132D05D31c914a87C6611C10748AEb04B58e8F", new Date(from*1000).toISOString() , new Date(to*1000).toISOString() ),
-        variables: {
-          from: new Date(from* 1000).toISOString() , 
-          to: new Date(to* 1000).toISOString() , 
-          interval: Number(resolution),
-          tokenAddress: symbolInfo.ticker,
-        },
+        query: Bitquery.GET_COIN_BARS(tokens[0] || "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", tokens[1] || "0xc2132D05D31c914a87C6611C10748AEb04B58e8F", new Date(from*1000).toISOString() , new Date(to*1000).toISOString(), getResolutionValue(resolution) ),
       })
       var config = {
         method: 'post',
@@ -101,18 +96,28 @@ export default {
         data: data,
       }
       const response2 = await axios(config)
-      const bars = response2.data.data.ethereum.dexTrades.map((el) => ({
-        time: new Date(el.timeInterval.minute).getTime(), // date string in api response
-        low: el.low,
-        high: el.high,
-        open: Number(el.open),
-        close: Number(el.close),
-        volume: el.volume,
-      }))
-      if (bars.length) {
-        onHistoryCallback(bars, { noData: false })
-      } else {
-        onHistoryCallback(bars, { noData: true })
+      console.log(response2);
+      const trades = response2.data.data.ethereum.dexTrades;
+
+      if (trades && trades.length) {
+        const bars = trades.map((el) => ({
+          time: new Date(el.timeInterval.minute).getTime(), // date string in api response
+          low: el.low,
+          high: el.high,
+          open: Number(el.open),
+          close: Number(el.close),
+          volume: el.volume,
+        }))
+  
+        lastTime = trades[trades.length - 1].timeInterval.minute;
+
+        console.log('lastTime = ', lastTime);
+  
+        if (bars.length) {
+          onHistoryCallback(bars, { noData: false })
+        } else {
+          onHistoryCallback(bars, { noData: true })
+        }
       }
     } catch (err) {
       console.log({ err })
@@ -125,6 +130,14 @@ export default {
     onRealtimeCallback,
     subscribeID,
     onResetCacheNeededCallback,
-  ) => {},
-  unsubscribeBars: (subscribeID) => {},
+  ) => {
+    console.log('[subscribeBars]: Method call with subscriberUID:', subscribeID);
+    console.log('resolution:', resolution);
+    console.log('lastTime: ', lastTime)
+
+    addSubscribe(subscribeID, lastTime, resolution, onRealtimeCallback);
+  },
+  unsubscribeBars: (subscribeID) => {
+    deleteSubscribe(subscribeID);
+  },
 }

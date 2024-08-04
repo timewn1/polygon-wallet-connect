@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useAccount } from 'wagmi';
 
 import Th from '../tables/Th';
 import Td from '../tables/Td';
 
-const Tab = ({text, active, handleClick, _className}: any) => {
+import { GET_TOKEN_HOLDERS, GET_TRANSACTIONS } from '../TVChartContainer/bitquery';
+import { callQuery } from '../../api/bitqueryApi';
+import { Link } from 'react-router-dom';
+import { formatAddress } from '../../utils/normal';
+
+const Tab = ({ text, active, handleClick, _className }: any) => {
     return (
         <div
-            className={`text-[1.2em] cursor-pointer pb-2 font-medium ${
-            active
+            className={`text-[1.2em] cursor-pointer pb-2 font-medium ${active
                 ? " text-[#000000]"
                 : " text-[#B9B9B9]"
-            } ${_className ? _className : ''}`}
+                } ${_className ? _className : ''}`}
             onClick={() => handleClick()}
         >
             {text}
@@ -18,56 +23,117 @@ const Tab = ({text, active, handleClick, _className}: any) => {
     )
 }
 
-const History = () => {
-    const [active, setActive] = useState(true);
-    const transactions = [
-        {
-            type: "buy",
-            date: "2021-08-12",
-            kind: "ETH",
-            amount: "12ETH",
-            address: "sdfdsfdsfdsf3594729385sdfsdf",
-            status: "Pending"
-        },
-        {
-            type: "buy",
-            date: "2021-08-12",
-            kind: "ETH",
-            amount: "12ETH",
-            address: "sdfdsfdsfdsf3594729385sdfsdf",
-            status: "Pending"
-        },
-        {
-            type: "buy",
-            date: "2021-08-12",
-            kind: "ETH",
-            amount: "12ETH",
-            address: "sdfdsfdsfdsf3594729385sdfsdf",
-            status: "Pending"
-        },
-        {
-            type: "buy",
-            date: "2021-08-12",
-            kind: "ETH",
-            amount: "12ETH",
-            address: "sdfdsfdsfdsf3594729385sdfsdf",
-            status: "Pending"
-        },
-        {
-            type: "buy",
-            date: "2021-08-12",
-            kind: "ETH",
-            amount: "12ETH",
-            address: "sdfdsfdsfdsf3594729385sdfsdf",
-            status: "Pending"
-        }
-    ]
+const Transactions = ({ transactions }: any) => {
     return (
-            <div className="flex flex-col">
-                <div className='flex justify-between'>
+        <table className="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <Th _className="items-center flex gap-2 justify-center">
+                        No
+                    </Th>
+                    <Th>Hash</Th>
+                    <Th>Time</Th>
+                    <Th>To</Th>
+                    <Th>Gas</Th>
+                    <Th>Status</Th>
+                </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+                {
+                    transactions.map((transaction: any, ind: number) => (
+                        <tr key={ind}>
+                            <Td _className=" font-medium items-center flex gap-4 justify-center">
+                                {ind + 1}
+                            </Td>
+                            <Td><Link className="hover:underline" to={`https://polygonscan.com/tx/${transaction.hash}`}>{formatAddress(transaction.hash)}</Link></Td>
+                            <Td>{transaction.block.timestamp.time}</Td>
+                            <Td><Link className="hover:underline" to={`https://polygonscan.com/address/${transaction.address.address}`}>{formatAddress(transaction.address.address)}</Link></Td>
+                            <Td>{transaction.gasValue}</Td>
+                            <Td _className="items-center flex gap-2 justify-center">
+                                <div className={`w-2 h-2 ${transaction.success ? 'bg-green-600' : 'bg-red-600'} `}></div>
+                                <div>
+                                    {transaction.success ? 'Success' : 'Failed'}
+                                </div>
+                            </Td>
+                        </tr>
+                    ))
+                }
+            </tbody>
+        </table>
+    )
+}
+
+const TokenHolders = ({holders}: any) => {
+    return (
+        <table className="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <Th _className="items-center flex gap-2 justify-center">
+                        No
+                    </Th>
+                    <Th>Address</Th>
+                    <Th>Asset</Th>
+                </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-200">
+                {
+                    holders.map((holder: any, ind: number) => (
+                        <tr key={ind}>
+                            <Td _className=" font-medium items-center flex gap-4 justify-center">
+                                {ind + 1}
+                            </Td>
+                            <Td>{holder.Holder.Address}</Td>
+                            <Td>{holder.Balance.Amount}</Td>
+                        </tr>
+                    ))
+                }
+            </tbody>
+        </table>
+    )
+}
+
+const History = () => {
+    const { address } = useAccount();
+
+    const [activeTab, setActiveTab] = useState(true);
+    const [tokenHolders, setTokenHolders] = useState([]);
+    const [transactions, setTransactions] = useState([])
+
+    const getTransactionHistory = async (address: string) => {
+        const query = GET_TRANSACTIONS(address, 10, 0);
+        const result = await callQuery('v1', query);
+
+        console.log('result = ', result);
+        if (result?.data?.data?.ethereum?.transactions) {
+            setTransactions(result?.data?.data?.ethereum?.transactions);
+        }
+    }
+
+    const getTokenHolders = async () => {
+        const query = GET_TOKEN_HOLDERS('0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270');   // WMATIC holders
+        const result = await callQuery('eap', query);
+
+        if (result?.data?.data?.EVM?.TokenHolders) {
+            setTokenHolders(result?.data?.data?.EVM?.TokenHolders);
+        }
+    }
+
+    useEffect(() => {
+        if (activeTab) {
+            getTokenHolders();
+        } else {
+            if (address) {
+                getTransactionHistory('0xad8fbf8291a5b1d768f26a770a82308840953f77');
+                // getTransactionHistory(address);
+            }
+        }
+    }, [activeTab, address])
+    return (
+        <div className="flex flex-col">
+            <div className='flex justify-between'>
                 <div className={"flex gap-[30px] sm:gap-[30px]"}>
-                    <Tab text="Top Holder" active={active} handleClick={() => setActive(true)} />
-                    <Tab text="Transaction History"  active={!active} handleClick={() => setActive(false)}/>
+                    <Tab text="Top Holder" active={activeTab} handleClick={() => setActiveTab(true)} />
+                    <Tab text="Transaction History" active={!activeTab} handleClick={() => setActiveTab(false)} />
                 </div>
                 {/* <div className='flex gap-5'>
                     <div  className='flex gap-5 items-center cursor-pointer'>
@@ -90,51 +156,12 @@ const History = () => {
             </div>
             <div className="-m-1.5 overflow-x-auto mt-1">
                 <div className="p-1.5 min-w-full inline-block align-middle">
-                    <div className="overflow-hidden">
-                        <table className="min-w-full divide-y divide-gray-200">
-                            <thead>
-                                <tr>
-                                    <Th _className="items-center flex gap-2 justify-center">
-                                        <div>
-                                            <input type="checkbox" />
-                                        </div>
-                                        Type
-                                    </Th>
-                                    <Th>Date</Th>
-                                    <Th>Asset</Th>
-                                    <Th>Amount</Th>
-                                    <Th>Address</Th>
-                                    <Th>Status</Th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-gray-200">
-                                {
-                                    transactions.map((transaction, ind) => (
-                                        <tr key={ind}>
-                                            <Td _className=" font-medium items-center flex gap-4 justify-center">
-                                                <div>
-                                                    <input type="checkbox" />
-                                                </div>
-                                                <div className='rounded-full p-2 bg-cyan-200'>
-                                                    <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4.75 17.25a.75.75 0 0 1 .75.75v2.25c0 .138.112.25.25.25h12.5a.25.25 0 0 0 .25-.25V18a.75.75 0 0 1 1.5 0v2.25A1.75 1.75 0 0 1 18.25 22H5.75A1.75 1.75 0 0 1 4 20.25V18a.75.75 0 0 1 .75-.75Z"></path><path d="M5.22 9.97a.749.749 0 0 1 1.06 0l4.97 4.969V2.75a.75.75 0 0 1 1.5 0v12.189l4.97-4.969a.749.749 0 1 1 1.06 1.06l-6.25 6.25a.749.749 0 0 1-1.06 0l-6.25-6.25a.749.749 0 0 1 0-1.06Z"></path></svg>
-                                                </div>
-                                                {transaction.type}
-                                            </Td>
-                                            <Td>{transaction.date}</Td>
-                                            <Td>{transaction.kind}</Td>
-                                            <Td>{transaction.amount}</Td>
-                                            <Td>{transaction.address}</Td>
-                                            <Td _className="items-center flex gap-2 justify-center">
-                                                <div className='w-2 h-2 bg-green-600'></div>
-                                                <div>
-                                                    {transaction.status}
-                                                </div>
-                                            </Td>
-                                        </tr>
-                                    ))
-                                }
-                            </tbody>
-                        </table>
+                    <div className="overflow-auto max-h-[350px]">
+                        {
+                            activeTab ? 
+                            <TokenHolders holders={tokenHolders} /> :
+                            <Transactions transactions={transactions}/>
+                        }
                     </div>
                 </div>
             </div>

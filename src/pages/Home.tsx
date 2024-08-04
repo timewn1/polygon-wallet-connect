@@ -1,18 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { RootState } from '../store';
+
+import { useAccount } from 'wagmi';
 
 import Container from '../components/Container';
 import TokenList from '../components/TokenList';
 import History from '../components/history/History';
 import TVChartContainer from '../components/TVChartContainer';
+import { formatAddress } from '../utils/normal';
 
 const Home = () => {
+    const { address } = useAccount();
+    const [addressValue, setAddressValue] = useState('');
+
+    const balance = useSelector((state: RootState) => state.wallet.balance);
+
+    useEffect(() => {
+        if (address) {
+            setAddressValue(address);
+        } else {
+            setAddressValue('');
+        }
+    }, [address])
+
     return (
         <div className="mt-[60px]">
             <Container>
-                <div className='flex pt-10 text-center'>
-                    <div className="w-[25%]">
-                        <h1 className='text-4xl	mt-[80px]'>$ 487, 914.83</h1>
-                        <p className='text-[1em] text-slate-400	'>Your Balance</p>
+                <div className='flex pt-10 text-center pb-6'>
+                    <div className="w-[25%] min-w-[380px]">
+                        <h1 className='text-4xl	mt-[80px]'>$ {balance.toFixed(2)}</h1>
+                        <p className='text-[1em] text-slate-400	'>{formatAddress(addressValue)}</p>
                         <div className='w-[100] flex justify-center'>
                             <button className='flex items-center gap-2 border rounded-[1em] w-[10em] px-4 py-3 mt-[2em] justify-between'>
                                 Buy SMD
@@ -20,14 +39,13 @@ const Home = () => {
                             </button>
                         </div>
                         <h2 className='mt-[3em] text-left font-semibold	text-2xl'>Your Assets</h2>
-                        <div className='flex gap-5 mt-3 '>
+                        {/* <div className='flex gap-5 mt-3 '>
                             <p className='text-slate-400'>The crypto market cap</p>
                             <p className='text-slate-500'>52.19T</p>
-                        </div>
+                        </div> */}
                         <div className='bg-neutral-100 rounded-[1em] mt-5'>
                            <TokenList />
                         </div>
-
                     </div>
                     <div className="w-[75%] pl-[60px]">
                         <div className="w-full flex h-[500px]">
