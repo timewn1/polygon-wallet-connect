@@ -1,7 +1,7 @@
 import { getNextTime } from '../../utils/chart';
+import { BITQUERY_V1_KEY, BITQUERY_V2_KEY } from '../../config/apiKeys';
 
-const BITQUERY_WS_URL = "wss://streaming.bitquery.io/eap?token=ory_at_WnJ1L9rRN7Ozw-Unk0tSPXgjnfiLJcAoKO4xkDmVroM.H6PaY8aPKsAIsyQZ8HqeySwx59iEMIVzcyQnUiSBQxE	";
-const API_KEY = 'BQY9E9fPMVK8GNWijhWqsAo6WauDcRQ5';
+const BITQUERY_WS_URL = `wss://streaming.bitquery.io/eap?token=${BITQUERY_V2_KEY}`;
 
 let bitqueryConnection = null;
 const subscribes = new Map();
@@ -37,7 +37,7 @@ export const connectStream = () => {
       headers: {
         "Sec-WebSocket-Protocol": "graphql-ws",
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${API_KEY}`
+        "Authorization": `Bearer ${BITQUERY_V1_KEY}`
       },
     }
   );
@@ -94,7 +94,7 @@ export const connectStream = () => {
       "variables": {}
     },
     "headers": {
-      "Authorization": `Bearer ${API_KEY}`
+      "Authorization": `Bearer ${BITQUERY_V1_KEY}`
     }
   });
 

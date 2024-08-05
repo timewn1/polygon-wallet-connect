@@ -25,72 +25,81 @@ const Tab = ({ text, active, handleClick, _className }: any) => {
 
 const Transactions = ({ transactions }: any) => {
     return (
-        <table className="min-w-full divide-y divide-gray-200">
-            <thead>
-                <tr>
-                    <Th _className="items-center flex gap-2 justify-center">
-                        No
-                    </Th>
-                    <Th>Hash</Th>
-                    <Th>Time</Th>
-                    <Th>From</Th>
-                    <Th>To</Th>
-                    <Th>Gas</Th>
-                    <Th>Status</Th>
-                </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-                {
-                    transactions.map((transaction: any, ind: number) => (
-                        <tr key={ind}>
-                            <Td _className=" font-medium items-center flex gap-4 justify-center">
-                                {ind + 1}
-                            </Td>
-                            <Td><Link className="hover:underline" to={`https://polygonscan.com/tx/${transaction.hash}`}>{formatAddress(transaction.hash)}</Link></Td>
-                            <Td>{transaction.block.timestamp.time}</Td>
-                            <Td><Link className="hover:underline" to={`https://polygonscan.com/address/${transaction.sender.address}`}>{formatAddress(transaction.sender.address)}</Link></Td>
-                            <Td><Link className="hover:underline" to={`https://polygonscan.com/address/${transaction.address.address}`}>{formatAddress(transaction.address.address)}</Link></Td>
-                            <Td>{transaction.gasValue}</Td>
-                            <Td _className="items-center flex gap-2 justify-center">
-                                <div className={`w-2 h-2 ${transaction.success ? 'bg-green-600' : 'bg-red-600'} `}></div>
-                                <div>
-                                    {transaction.success ? 'Success' : 'Failed'}
-                                </div>
-                            </Td>
-                        </tr>
-                    ))
-                }
-            </tbody>
-        </table>
+        <>
+            <table className="min-w-full divide-y divide-gray-200">
+                <thead>
+                    <tr>
+                        <Th _className="items-center flex gap-2 justify-center">
+                            No
+                        </Th>
+                        <Th>Hash</Th>
+                        <Th>Time</Th>
+                        <Th>From</Th>
+                        <Th>To</Th>
+                        <Th>Gas</Th>
+                        <Th>Status</Th>
+                    </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                    {
+                        !!transactions.length &&
+                        transactions.map((transaction: any, ind: number) => (
+                            <tr key={ind}>
+                                <Td _className=" font-medium items-center flex gap-4 justify-center">
+                                    {ind + 1}
+                                </Td>
+                                <Td><Link className="hover:underline" to={`https://polygonscan.com/tx/${transaction.hash}`}>{formatAddress(transaction.hash)}</Link></Td>
+                                <Td>{transaction.block.timestamp.time}</Td>
+                                <Td><Link className="hover:underline" to={`https://polygonscan.com/address/${transaction.sender.address}`}>{formatAddress(transaction.sender.address)}</Link></Td>
+                                <Td><Link className="hover:underline" to={`https://polygonscan.com/address/${transaction.address.address}`}>{formatAddress(transaction.address.address)}</Link></Td>
+                                <Td>{transaction.gasValue}</Td>
+                                <Td _className="items-center flex gap-2 justify-center">
+                                    <div className={`w-2 h-2 ${transaction.success ? 'bg-green-600' : 'bg-red-600'} `}></div>
+                                    <div>
+                                        {transaction.success ? 'Success' : 'Failed'}
+                                    </div>
+                                </Td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+            <p className="w-full text-center mt-3">{!transactions.length && 'No List'}</p>
+        </>
     )
 }
 
-const TokenHolders = ({holders}: any) => {
+const TokenHolders = ({ holders }: any) => {
     return (
-        <table className="min-w-full divide-y divide-gray-200">
-            <thead>
-                <tr>
-                    <Th _className="items-center flex gap-2 justify-center">
-                        No
-                    </Th>
-                    <Th>Address</Th>
-                    <Th>Asset</Th>
-                </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-                {
-                    holders.map((holder: any, ind: number) => (
-                        <tr key={ind}>
-                            <Td _className=" font-medium items-center flex gap-4 justify-center">
-                                {ind + 1}
-                            </Td>
-                            <Td>{holder.Holder.Address}</Td>
-                            <Td>{holder.Balance.Amount}</Td>
-                        </tr>
-                    ))
-                }
-            </tbody>
-        </table>
+        <>
+            <table className="min-w-full divide-y divide-gray-200">
+                <thead>
+                    <tr>
+                        <Th _className="items-center flex gap-2 justify-center">
+                            No
+                        </Th>
+                        <Th>Address</Th>
+                        <Th>Asset</Th>
+                    </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200">
+                    {
+
+                        !!holders.length &&
+                        holders.map((holder: any, ind: number) => (
+                            <tr key={ind}>
+                                <Td _className=" font-medium items-center flex gap-4 justify-center">
+                                    {ind + 1}
+                                </Td>
+                                <Td>{holder.Holder.Address}</Td>
+                                <Td>{holder.Balance.Amount}</Td>
+                            </tr>
+                        ))
+                    }
+                </tbody>
+            </table>
+            <p className="w-full text-center mt-3">{!holders.length && 'No List'}</p>
+        </>
     )
 }
 
@@ -186,9 +195,9 @@ const History = () => {
                 <div className="p-1.5 min-w-full inline-block align-middle">
                     <div className="overflow-auto max-h-[350px]">
                         {
-                            activeTab ? 
-                            <TokenHolders holders={tokenHolders} /> :
-                            <Transactions transactions={transactions}/>
+                            activeTab ?
+                                <TokenHolders holders={tokenHolders} /> :
+                                <Transactions transactions={transactions} />
                         }
                     </div>
                 </div>

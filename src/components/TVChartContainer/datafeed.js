@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import * as Bitquery from './bitquery';
 import { addSubscribe, deleteSubscribe } from './stream';
+import { BITQUERY_V1_KEY } from '../../config/apiKeys';
 
 import { getResolutionValue } from '../../utils/chart';
 
@@ -9,7 +10,6 @@ const configurationData = {
   supported_resolutions: ['1', '5', '15', '30', '60', '240', '1D', '1W', '1M'],
 }
 
-const API_KEY = 'BQY9E9fPMVK8GNWijhWqsAo6WauDcRQ5';
 let lastTime = '';
 
 export default {
@@ -38,7 +38,7 @@ export default {
       url: 'https://graphql.bitquery.io',
       headers: {
         'Content-Type': 'application/json',
-        'X-API-KEY': API_KEY,
+        'X-API-KEY': BITQUERY_V1_KEY,
         "mode" : "*"
       },
       data: data,
@@ -90,7 +90,7 @@ export default {
         url: 'https://graphql.bitquery.io',
         headers: {
           'Content-Type': 'application/json',
-          'X-API-KEY': API_KEY,
+          'X-API-KEY': BITQUERY_V1_KEY,
         },
         data: data,
       }

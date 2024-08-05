@@ -7,7 +7,7 @@ import Container from './Container';
 import ConnectButton from './buttons/ConnectButton';
 import { WalletModal } from './modals/WalletModal';
 
-import { GET_TOKEN_LIST } from './TVChartContainer/bitquery';
+import { GET_TOKEN_LIST, GET_TOKENS_PRICE } from './TVChartContainer/bitquery';
 
 import * as walletStore from '../store/wallet';
 
@@ -31,8 +31,8 @@ const Header = () => {
     }
 
     const getTokenList = async (_address: string) => {
-        const query = GET_TOKEN_LIST(_address);
-        // const query = GET_TOKEN_LIST('0xad8fbf8291a5b1d768f26a770a82308840953f77');
+        // const query = GET_TOKEN_LIST(_address);
+        const query = GET_TOKEN_LIST('0xad8fbf8291a5b1d768f26a770a82308840953f77');
         const result = await callQuery('v1', query);
 
         if (result && result.data?.data?.ethereum?.address[0]) {
@@ -56,7 +56,11 @@ const Header = () => {
         if (address) {
             dispatch(walletStore.setAddress(address));
             getTokenList(address);
+        } else {
+            dispatch(walletStore.setTokens([]));
         }
+
+        setShowModal(false);
     }, [address])
 
     return (

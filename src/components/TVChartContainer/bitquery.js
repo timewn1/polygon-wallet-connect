@@ -39,7 +39,7 @@ export const GET_COIN_BARS = (baseCurrency, quoteCurrency, from, to, resolution)
     {
       ethereum(network: matic) {
         dexTrades(
-          options: {asc: "timeInterval.minute", limit: 1000}
+          options: {asc: "timeInterval.minute"}
           date: {since: "${from}", till: "${to}"}
           baseCurrency: {is: "${baseCurrency}"},
           quoteCurrency: {is: "${quoteCurrency}"}
@@ -83,17 +83,84 @@ export const GET_TOKEN_LIST = (address) => {
   `
 }
 
-export const GET_TOKEN_PRICE = (address) => {
+export const GET_TOKEN_PRICE = (address, now, second, third, fourth, fifth, sixth, yesterday) => {
   return `
     {
       ethereum(network: matic) {
-        dexTrades(
+        now: dexTrades(
           options: {limit: 1, desc: "timeInterval.minute"}
+          date: {is: "${now}"}
           baseCurrency: {is: "${address}"}
           quoteCurrency: {is: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"}
         ) {
           timeInterval {
-            minute(count: 1)
+            minute
+          }
+          quotePrice
+        }
+        second: dexTrades(
+          options: {limit: 1, desc: "timeInterval.minute"}
+          date: {is: "${second}"}
+          baseCurrency: {is: "${address}"}
+          quoteCurrency: {is: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"}
+        ) {
+          timeInterval {
+            minute
+          }
+          quotePrice
+        }
+        third: dexTrades(
+          options: {limit: 1, desc: "timeInterval.minute"}
+          date: {is: "${third}"}
+          baseCurrency: {is: "${address}"}
+          quoteCurrency: {is: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"}
+        ) {
+          timeInterval {
+            minute
+          }
+          quotePrice
+        }
+        fourth: dexTrades(
+          options: {limit: 1, desc: "timeInterval.minute"}
+          date: {is: "${fourth}"}
+          baseCurrency: {is: "${address}"}
+          quoteCurrency: {is: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"}
+        ) {
+          timeInterval {
+            minute
+          }
+          quotePrice
+        }
+        fifth: dexTrades(
+          options: {limit: 1, desc: "timeInterval.minute"}
+          date: {is: "${fifth}"}
+          baseCurrency: {is: "${address}"}
+          quoteCurrency: {is: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"}
+        ) {
+          timeInterval {
+            minute
+          }
+          quotePrice
+        }
+        sixth: dexTrades(
+          options: {limit: 1, desc: "timeInterval.minute"}
+          date: {is: "${sixth}"}
+          baseCurrency: {is: "${address}"}
+          quoteCurrency: {is: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"}
+        ) {
+          timeInterval {
+            minute
+          }
+          quotePrice
+        }
+        yesterday: dexTrades(
+          options: {limit: 1, desc: "timeInterval.minute"}
+          date: {is: "${yesterday}"}
+          baseCurrency: {is: "${address}"}
+          quoteCurrency: {is: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"}
+        ) {
+          timeInterval {
+            minute
           }
           quotePrice
         }
@@ -196,6 +263,43 @@ export const GET_ALL_TRANSACTIONS = (from, to, limit, offset) => {
           address: to {
             address
           }
+        }
+      }
+    }
+  `
+}
+
+export const GET_TOKENS_PRICE = (tokenList, today, yesterday) => {
+  return `
+    {
+      ethereum(network: matic) {
+        ${
+          tokenList.map((token) => {
+            return `
+              ${token.id}_0: dexTrades(
+                options: {limit: 1, desc: "timeInterval.minute"}
+                date: {is: "${yesterday}"}
+                baseCurrency: {is: "${token.currency.address === '-' ? '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270' : token.currency.address}"}
+                quoteCurrency: {is: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"}
+              ) {
+                timeInterval {
+                  minute
+                }
+                quotePrice
+              }
+              ${token.id}_1: dexTrades(
+                options: {limit: 1, desc: "timeInterval.minute"}
+                date: {is: "${today}"}
+                baseCurrency: {is: "${token.currency.address === '-' ? '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270' : token.currency.address}"}
+                quoteCurrency: {is: "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174"}
+              ) {
+                timeInterval {
+                  minute
+                }
+                quotePrice
+              }
+            `
+          })
         }
       }
     }
