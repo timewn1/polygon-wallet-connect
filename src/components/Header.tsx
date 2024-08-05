@@ -31,8 +31,8 @@ const Header = () => {
     }
 
     const getTokenList = async (_address: string) => {
-        // const query = GET_TOKEN_LIST(_address);
-        const query = GET_TOKEN_LIST('0xad8fbf8291a5b1d768f26a770a82308840953f77');
+        const query = GET_TOKEN_LIST(_address);
+        // const query = GET_TOKEN_LIST('0xad8fbf8291a5b1d768f26a770a82308840953f77');
         const result = await callQuery('v1', query);
 
         if (result && result.data?.data?.ethereum?.address[0]) {
@@ -48,8 +48,6 @@ const Header = () => {
                     id: `token${index}`
                 }
             });
-            console.log('filterdTokens = ', filterdTokens)
-
             dispatch(walletStore.setTokens(filterdTokens));
         }
     }

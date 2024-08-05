@@ -105,7 +105,6 @@ const History = () => {
         const query = GET_TRANSACTIONS(address, 10, 0);
         const result = await callQuery('v1', query);
 
-        console.log('result = ', result);
         if (result?.data?.data?.ethereum?.transactions) {
             const _transactions = result?.data?.data?.ethereum?.transactions;
             const mergeTransactions = [..._transactions.sender, ..._transactions.receiver].sort((a: any, b: any) => {
@@ -131,7 +130,6 @@ const History = () => {
         const query = GET_ALL_TRANSACTIONS(from, to, 10, 0);
         const result = await callQuery('v1', query);
 
-        console.log('result = ', result);
         if (result?.data?.data?.ethereum?.transactions) {
             setTransactions(result?.data?.data?.ethereum?.transactions);
         }
@@ -151,8 +149,8 @@ const History = () => {
             getTokenHolders();
         } else {
             if (address) {
-                getTransaction('0xad8fbf8291a5b1d768f26a770a82308840953f77');
-                // getTransactionHistory(address);
+                // getTransaction('0xad8fbf8291a5b1d768f26a770a82308840953f77');
+                getTransaction(address);
             } else {
                 getAllTransactions();
             }

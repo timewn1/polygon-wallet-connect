@@ -43,7 +43,8 @@ const TokenList = () => {
     return(
         <div className='px-3 py-4 overflow-auto max-h-[600px]'>
             {
-                tokens.map((i: any, ind: number) => (
+                tokens && tokens.length ? 
+                tokens?.map((i: any, ind: number) => (
                     openId === ind ? 
                     <div className="bg-white rounded-[1em] px-5 py-5 hover:cursor-pointer" key={ind}>
                         <div className="py-3  flex justify-between items-center " key={ind} onClick={() => {handleOpen(i, -1)}}>
@@ -82,7 +83,8 @@ const TokenList = () => {
                             <p className="text-green-500">{i.percent}</p>
                        </div> */}
                     </div>
-                ))
+                )) :
+                <div>No assets</div>
             }
         </div>
     )
