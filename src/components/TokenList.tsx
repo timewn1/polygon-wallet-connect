@@ -51,6 +51,7 @@ const TokenList = () => {
 
             if (result?.data?.data?.ethereum) {
                 const _prices = result?.data?.data?.ethereum;
+
                 const yesterday = _prices.yesterday.length ? _prices.yesterday[0].quotePrice : 0;
                 const sixth = _prices.sixth.length ? _prices.sixth[0].quotePrice : 0;
                 const fifth = _prices.fifth.length ? _prices.fifth[0].quotePrice : 0;
@@ -94,10 +95,11 @@ const TokenList = () => {
     }
 
     const getTokenLogo = (address: string) => {
-        const _address = (address === '-' || address === '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270') ? '0x0000000000000000000000000000000000001010' : address;
+        const _address = (address === '-' || address.toLowerCase() === '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270'.toLowerCase()) ? '0x0000000000000000000000000000000000001010' : address;
+        const filterAddress = _address.toLowerCase();
 
-        if (Logos[_address]) {
-            return Logos[_address];
+        if (Logos[filterAddress]) {
+            return Logos[filterAddress];
         } else {
             return '/img/default-coin.png';
         }
@@ -154,5 +156,5 @@ const TokenList = () => {
         </div>
     )
 }
-0.
+
 export default TokenList;
