@@ -21,7 +21,6 @@ export const getResolutionValue = (resolution: string) => {
         } else if (string === 'M') {
             number *= 60 * 24 * 30;
         }
-    
         return number;
     }
     return null;

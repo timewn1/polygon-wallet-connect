@@ -9,6 +9,7 @@ import Container from '../components/Container';
 import TokenList from '../components/TokenList';
 import History from '../components/history/History';
 import TVChartContainer from '../components/TVChartContainer';
+
 import { formatAddress } from '../utils/normal';
 
 const Home = () => {
