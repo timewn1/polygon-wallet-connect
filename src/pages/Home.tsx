@@ -15,6 +15,7 @@ import { formatAddress } from '../utils/normal';
 const Home = () => {
     const { address } = useAccount();
     const [addressValue, setAddressValue] = useState('');
+    const [feedSlip, setFeedSlip] = useState(false);
 
     const balance = useSelector((state: RootState) => state.wallet.balance);
 
@@ -56,11 +57,19 @@ const Home = () => {
                     </div>
                     <div className="w-[75%] pl-[60px]">
                         <div className="w-full flex h-[500px]">
-                            <div className='w-[70%]'>
+                            <div className='w-[65%] pt-4'>
                                 <TVChartContainer />
                             </div>
-                            <div className='w-[30%]'>
-                                Rapid part
+                            <div className='w-[35%] pl-10 overflow-hidden flex gap-10 relative'>
+                                <div className={`min-w-full transition-transform duration-500 ease-in-out ${feedSlip ? 'translate-x-[-150%]' : ''}`}>
+                                    <img src="https://alternative.me/crypto/fear-and-greed-index.png" alt="Latest Crypto Fear & Gred Index" />
+                                </div>
+                                <div className={`min-w-full transition-transform duration-500 ease-in-out ${feedSlip ? 'translate-x-[-110%]' : ''}`}>
+                                    <iframe width="300" height="500" src="https://rss.app/embed/v1/list/tIx8B8dO8tQ18sP8"></iframe>
+                                </div>
+                                <span className="absolute right-0 top-[25%] text-[50px] text-[#1A846D] z-50 hover:cursor-pointer hover:bg-black/5" onClick={() => {setFeedSlip(!feedSlip)}}>
+                                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="50px" width="50px" xmlns="http://www.w3.org/2000/svg"><path d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"></path></svg>
+                                </span>
                             </div>
                         </div>
                         <div className='mt-[20px]'>
