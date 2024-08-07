@@ -34,11 +34,14 @@ const Home = () => {
                     <div className="w-[25%] min-w-[380px]">
                         {
                             address ? <>
-                                <h1 className='text-4xl	mt-[80px]'>$ {balance.toFixed(2)}</h1>
-                                <p className='text-[1em] text-slate-400	'>{formatAddress(addressValue)}</p>   
+                                <p className='text-[1em] text-slate-400 text-left'>{'...' + addressValue.substring(addressValue.length - 10)}</p>   
                             </> : 
-                            <p className="mt-8">No connected</p>
+                            <p className="text-left">No connected</p>
                         }
+                        <div className="flex flex-col items-center justify-start gap-2 mt-[60px]">
+                            <img src='/img/coin.png' alt="coin" />
+                            <h1 className='text-4xl'>$ {balance.toFixed(2)}</h1>
+                        </div>
                         <div className='w-[100] flex justify-center'>
                             <button className='flex items-center gap-2 border rounded-[1em] w-[10em] px-4 py-3 mt-[2em] justify-between hover:bg-black/[0.02]'>
                                 <img src='/img/swap.png' className='w-5 h-auto' />
@@ -61,10 +64,10 @@ const Home = () => {
                                 <TVChartContainer />
                             </div>
                             <div className='w-[35%] pl-10 overflow-hidden flex gap-10 relative'>
-                                 <div className={`min-w-full transition-transform duration-500 ease-in-out -z-10 ${feedSlip ? 'translate-x-[-150%]' : ''}`}>
-                                    <img src="https://alternative.me/crypto/fear-and-greed-index.png" alt="Latest Crypto Fear & Gred Index" />
+                                 <div className={`min-w-full transition-transform duration-500 ease-in-out ${feedSlip ? 'translate-x-[-150%]' : ''}`}>
+                                    <img src="https://alternative.me/crypto/fear-and-greed-index.png" alt="Latest Crypto Fear & Gred Index" className='w-[300px]' />
                                 </div>
-                                <div className={`min-w-full transition-transform duration-500 ease-in-out -z-10 ${feedSlip ? 'translate-x-[-110%]' : ''}`}>
+                                <div className={`min-w-full transition-transform duration-500 ease-in-out ${feedSlip ? 'translate-x-[-110%]' : ''}`}>
                                     <iframe width="300" height="500" src="https://rss.app/embed/v1/list/tIx8B8dO8tQ18sP8"></iframe>
                                 </div>
                                 <span className="absolute right-0 top-[40%] text-[50px] text-[#1A846D] z-50 hover:cursor-pointer hover:bg-black/5" onClick={() => {setFeedSlip(!feedSlip)}}>
