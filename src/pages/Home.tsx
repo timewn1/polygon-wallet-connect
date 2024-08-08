@@ -10,8 +10,6 @@ import TokenList from '../components/TokenList';
 import History from '../components/history/History';
 import TVChartContainer from '../components/TVChartContainer';
 
-import { formatAddress } from '../utils/normal';
-
 const Home = () => {
     const { address } = useAccount();
     const [addressValue, setAddressValue] = useState('');
@@ -39,7 +37,7 @@ const Home = () => {
                             <p className="text-left">No connected</p>
                         }
                         <div className="flex flex-col items-center justify-start gap-2 mt-[60px]">
-                            <img src='/img/coin.png' alt="coin" />
+                            <img src='/img/logo1.svg' width={50} height={50} alt="coin" />
                             <h1 className='text-4xl'>$ {balance.toFixed(2)}</h1>
                         </div>
                         <div className='w-[100] flex justify-center'>
@@ -60,15 +58,17 @@ const Home = () => {
                     </div>
                     <div className="w-[75%] pl-[60px]">
                         <div className="w-full flex h-[500px]">
-                            <div className='w-[65%] pt-4'>
-                                <TVChartContainer />
+                            <div className='w-[65%] pt-2'>
+                                {/* <TVChartContainer /> */}
+                                <gecko-coin-price-chart-widget locale="en" outlined="true" initial-currency="usd" width="100%" height="315"></gecko-coin-price-chart-widget>
                             </div>
                             <div className='w-[35%] pl-10 overflow-hidden flex gap-10 relative'>
                                  <div className={`min-w-full transition-transform duration-500 ease-in-out ${feedSlip ? 'translate-x-[-150%]' : ''}`}>
                                     <img src="https://alternative.me/crypto/fear-and-greed-index.png" alt="Latest Crypto Fear & Gred Index" className='w-[300px]' />
                                 </div>
                                 <div className={`min-w-full transition-transform duration-500 ease-in-out ${feedSlip ? 'translate-x-[-110%]' : ''}`}>
-                                    <iframe width="300" height="500" src="https://rss.app/embed/v1/list/tIx8B8dO8tQ18sP8" className='border-none'></iframe>
+                                    {/* <iframe width="300" height="500" src="https://rss.app/embed/v1/list/tIx8B8dO8tQ18sP8" className='border-none'></iframe> */}
+                                    <iframe width="300" height="500" src="https://rss.app/embed/v1/list/bjVfZH7h7j6I5yuO" className='border-none'></iframe>
                                 </div>
                                 <span className="absolute right-0 top-[40%] text-[50px] text-[#1A846D] z-50 hover:cursor-pointer hover:bg-black/5" onClick={() => {setFeedSlip(!feedSlip)}}>
                                     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="50px" width="50px" xmlns="http://www.w3.org/2000/svg"><path d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"></path></svg>
