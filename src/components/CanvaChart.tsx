@@ -74,7 +74,7 @@ const CanvaChart: React.FC = () => {
                 <p>Loading...</p>
             ) : (
                 <>
-                    <p className='text-[1.2em] font-semibold flex justify-between items-center pl-1 pr-2'><span>Bitcoin/USD</span><span className={`${dataPoints[dataPoints.length - 1].y > dataPoints[dataPoints.length - 2].y ? 'text-green-600': 'text-red-600'}`}>${dataPoints[dataPoints.length - 1]?.y?.toFixed(4)}</span></p>
+                    <p className='text-[1.2em] font-semibold flex justify-between items-center pl-1 pr-2'><span>Bitcoin/USD</span><span className={`${dataPoints[dataPoints.length - 1].y > dataPoints[dataPoints.length - 2].y ? 'text-green-500': 'text-red-500'}`}>${dataPoints[dataPoints.length - 1]?.y?.toFixed(4)}</span></p>
                     <CanvasJSChart options={options} />
                 </>
             )}
