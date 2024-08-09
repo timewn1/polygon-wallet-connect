@@ -53,7 +53,7 @@ const CanvaChart: React.FC = () => {
         animationEnabled: true,
         zoomEnabled: true,
         title: {
-            text: 'Bitcoin Price',
+            text: ``,
         },
         axisY: {
             includeZero: false,
@@ -62,6 +62,7 @@ const CanvaChart: React.FC = () => {
         data: [
             {
                 type: 'area',
+                color: "#30949d",
                 dataPoints: dataPoints,
             },
         ],
@@ -72,7 +73,10 @@ const CanvaChart: React.FC = () => {
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
-                <CanvasJSChart options={options} />
+                <>
+                    <p className='text-[1.2em] font-semibold flex justify-between items-center pl-1 pr-2'><span>Bitcoin/USD</span><span className={`${dataPoints[dataPoints.length - 1].y > dataPoints[dataPoints.length - 2].y ? 'text-green-600': 'text-red-600'}`}>${dataPoints[dataPoints.length - 1]?.y?.toFixed(4)}</span></p>
+                    <CanvasJSChart options={options} />
+                </>
             )}
         </div>
     );
