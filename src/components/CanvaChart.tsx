@@ -41,7 +41,7 @@ const CanvaChart: React.FC = () => {
 
         setTimeout(() => {
             generateDataPoints();
-        }, 100000)
+        }, 10000)
     };
 
     useEffect(() => {
