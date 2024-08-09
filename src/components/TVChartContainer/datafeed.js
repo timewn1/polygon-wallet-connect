@@ -7,7 +7,7 @@ import { BITQUERY_V1_KEY } from '../../config/apiKeys';
 import { getResolutionValue } from '../../utils/chart';
 
 const configurationData = {
-  supported_resolutions: ['1', '5', '15', '30', '60', '240', '1D', '1W', '1M'],
+  supported_resolutions: ['30'],
 }
 
 let lastTime = '';
@@ -81,35 +81,47 @@ export default {
     first,
   ) => {
     try {
-      const tokens = symbolInfo.ticker.split(",");
-      const data = JSON.stringify({
-        query: Bitquery.GET_COIN_BARS(tokens[0] || "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", tokens[1] || "0xc2132D05D31c914a87C6611C10748AEb04B58e8F", new Date(from*1000).toISOString() , new Date(to*1000).toISOString(), getResolutionValue(resolution) ),
-      })
-      var config = {
-        method: 'post',
-        url: 'https://graphql.bitquery.io',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-API-KEY': BITQUERY_V1_KEY,
-        },
-        data: data,
-      }
-      const response2 = await axios(config)
-      const trades = response2.data.data.ethereum.dexTrades;
+      // const tokens = symbolInfo.ticker.split(",");
+      // const data = JSON.stringify({
+      //   query: Bitquery.GET_COIN_BARS(tokens[0] || "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", tokens[1] || "0xc2132D05D31c914a87C6611C10748AEb04B58e8F", new Date(from*1000).toISOString() , new Date(to*1000).toISOString(), getResolutionValue(resolution) ),
+      // })
+      // var config = {
+      //   method: 'post',
+      //   url: 'https://graphql.bitquery.io',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //     'X-API-KEY': BITQUERY_V1_KEY,
+      //   },
+      //   data: data,
+      // }
+      // const response2 = await axios(config)
+      // const trades = response2.data.data.ethereum.dexTrades;
 
-      if (trades && trades.length) {
-        const bars = trades.map((el) => ({
-          time: new Date(el.timeInterval.minute).getTime(), // date string in api response
-          low: el.low,
-          high: el.high,
-          open: Number(el.open),
-          close: Number(el.close),
-          volume: el.volume,
+      const url = 'https://api.coingecko.com/api/v3/coins/bitcoin/ohlc?days=1&vs_currency=usd';
+      const options = {
+        method: 'GET',
+        headers: {accept: 'application/json', 'x-cg-demo-api-key': 'CG-gai4uXMPd7obu5476wkDQi9A'}
+      };
+
+      const response = await fetch(url, options);
+      const data = await response.json();
+
+      console.log('data = ', data)
+
+
+      if (data && data.length) {
+        const bars = data.map((d) => ({
+          time: d[0], // date string in api response
+          open: d[1],
+          high: d[2],
+          low: d[3],
+          close: d[4],
+          // volume: el.volume,
         }))
   
-        lastTime = trades[trades.length - 1].timeInterval.minute;
+        // lastTime = trades[trades.length - 1].timeInterval.minute;
 
-        console.log('lastTime = ', lastTime);
+        // console.log('lastTime = ', lastTime);
   
         if (bars.length) {
           onHistoryCallback(bars, { noData: false })
@@ -131,7 +143,7 @@ export default {
   ) => {
     console.log('[subscribeBars]: Method call with subscriberUID:', subscribeID);
 
-    addSubscribe(subscribeID, lastTime, resolution, onRealtimeCallback);
+    // addSubscribe(subscribeID, lastTime, resolution, onRealtimeCallback);
   },
   unsubscribeBars: (subscribeID) => {
     deleteSubscribe(subscribeID);

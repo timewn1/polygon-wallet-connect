@@ -11,7 +11,7 @@ const TVChartContainer = ({base, quote}: any) => {
 			base instanceof Ether ? "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c": base?.address, 
 			quote instanceof Ether ? "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c": quote?.address
 		],
-		interval: `${1}`,
+		interval: `${30}`,
 		containerId: 'tv_chart_container',
 		// datafeedUrl: 'https://demo_feed.tradingview.com',
 		libraryPath: '/charting_library/', 
@@ -43,7 +43,20 @@ const TVChartContainer = ({base, quote}: any) => {
 			library_path: defaultProps.libraryPath,
 			theme: 'Light',
 			locale:  'en', //getLanguageFromURL() ||
-			disabled_features: [   "header_compare",  "header_saveload", "header_indicators", "left_toolbar"],  /*"left_toolbar",'use_localstorage_for_settings', "timeframes_toolbar", "left_toolbar", "show_logo_on_all_charts", "header_settings", "header_indicators", "header_compare", "compare_symbol", "header_screenshot", 
+			disabled_features: [ 
+				"header_compare",  
+				"header_saveload", 
+				"header_indicators", 
+				"left_toolbar", 
+				"header_interval_dialog_button", 
+				"header_settings", 
+				"header_screenshot", 
+				"header_undo_redo", 
+				"show_interval_dialog_on_key_press", 
+				"header_interval_toolbar",
+				"timeframes_toolbar"
+			],
+			/*"left_toolbar",'use_localstorage_for_settings', "timeframes_toolbar", "left_toolbar", "show_logo_on_all_charts", "header_settings", "header_indicators", "header_compare", "compare_symbol", "header_screenshot", 
 			"header_widget_dom_node", "header_saveload", "header_undo_redo", 
 			 "header_interval_dialog_button", "show_interval_dialog_on_key_press"*/
 			enabled_features: [],

@@ -7,6 +7,10 @@
 	min-width: 500px;
 }
 
+#header-toolbar-intervals {
+	display: none !important;
+}
+
 @media (max-width: 960px) {
 	.TVChartContainer{
 		width: 100%;

@@ -9,6 +9,9 @@ import Container from '../components/Container';
 import TokenList from '../components/TokenList';
 import History from '../components/history/History';
 import TVChartContainer from '../components/TVChartContainer';
+import {App as Chart} from '../components/LightweightChart';
+import { GooogleChart } from '../components/GoogleChart';
+import CanvaChart from '../components/CanvaChart';
 
 const Home = () => {
     const { address } = useAccount();
@@ -60,7 +63,10 @@ const Home = () => {
                         <div className="w-full flex h-[500px]">
                             <div className='w-[65%] pt-2'>
                                 {/* <TVChartContainer /> */}
-                                <gecko-coin-price-chart-widget locale="en" outlined="true" initial-currency="usd" width="100%" height="315"></gecko-coin-price-chart-widget>
+                                <CanvaChart />
+                                {/* <Chart /> */}
+                                {/* <GooogleChart /> */}
+                                {/* <gecko-coin-price-chart-widget locale="en" outlined="true" initial-currency="usd" width="100%" height="315"></gecko-coin-price-chart-widget> */}
                             </div>
                             <div className='w-[35%] pl-10 overflow-hidden flex gap-10 relative'>
                                  <div className={`min-w-full transition-transform duration-500 ease-in-out ${feedSlip ? 'translate-x-[-150%]' : ''}`}>

@@ -25,3 +25,18 @@ export const getResolutionValue = (resolution: string) => {
     }
     return null;
 }
+
+export const formatDate = (timestamp: number) => {
+    const date = new Date(timestamp);
+
+    // Get the components of the date
+    const month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are zero-indexed
+    const day = ('0' + date.getDate()).slice(-2);
+    const year = date.getFullYear();
+    const hours = ('0' + date.getHours()).slice(-2);
+    const minutes = ('0' + date.getMinutes()).slice(-2);
+    const seconds = ('0' + date.getSeconds()).slice(-2);
+
+    // Return the formatted date string as "mm/dd/yyyy hh:mm:ss"
+    return `${month}/${day} ${hours}:${minutes}:${seconds}`;
+}
