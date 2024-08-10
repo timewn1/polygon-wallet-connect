@@ -35,7 +35,7 @@
     "ws": "^8.18.0"
   },
   "scripts": {
-    "start": "SET PORT=4001 && react-scripts start",
+    "start": "SET PORT=3000 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

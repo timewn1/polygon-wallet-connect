@@ -11,6 +11,7 @@ interface DataPoint {
 const CanvaChart: React.FC = () => {
     const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [activeRange, setActiveRange] = useState(0);
 
     const generateDataPoints = async () => {
         try {
@@ -18,7 +19,11 @@ const CanvaChart: React.FC = () => {
                 'https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=usd&days=1';
             const options = {
                 method: 'GET',
-                headers: { accept: 'application/json' },
+                headers: { 
+                    accept: 'application/json',
+                    "x-cg-demo-api-key": "CG-gai4uXMPd7obu5476wkDQi9A",
+                    mode: 'no-cors'
+                },
             };
 
             const response = await fetch(url, options);
@@ -41,7 +46,7 @@ const CanvaChart: React.FC = () => {
 
         setTimeout(() => {
             generateDataPoints();
-        }, 10000)
+        }, 30000)
     };
 
     useEffect(() => {
@@ -73,9 +78,19 @@ const CanvaChart: React.FC = () => {
             {isLoading ? (
                 <p>Loading...</p>
             ) : (
-                <>
-                    <p className='text-[1.2em] font-semibold flex justify-between items-center pl-1 pr-2'><span>Bitcoin/USD</span><span className={`${dataPoints[dataPoints.length - 1].y > dataPoints[dataPoints.length - 2].y ? 'text-green-500': 'text-red-500'}`}>${dataPoints[dataPoints.length - 1]?.y?.toFixed(4)}</span></p>
-                    <CanvasJSChart options={options} />
+                <>  
+                    <div className='flex justify-between items-center w-full'>
+                        <p className='text-[20px] font-semibold flex justify-between items-center pl-1 pr-2 gap-4'><span>Bitcoin/USD</span><span className={`text-[24px] ${dataPoints[dataPoints.length - 1].y > dataPoints[dataPoints.length - 2].y ? 'text-green-500': 'text-red-500'}`}>${dataPoints[dataPoints.length - 1]?.y?.toFixed(4)}</span></p>
+                        <div className='flex justify-end items-center'>
+                            <button>1D</button>
+                            <button>1W</button>
+                            <button>1M</button>
+                            <button>1Y</button>
+                        </div>
+                    </div>
+                    {
+                        dataPoints.length && <CanvasJSChart options={options} />
+                    }
                 </>
             )}
         </div>
