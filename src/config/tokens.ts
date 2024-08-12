@@ -1,6 +1,18 @@
 const tokens = [
     {
         "currency": {
+            "address": "0xfb1075651706274D49B29dDbA8fFc4F2CB0723AA",
+            "decimals": 0,
+            "name": "Smart Dangol Coin",
+            "properties": null,
+            "symbol": "SMD",
+            "tokenId": "0",
+            "tokenType": "ERC20"
+        },
+        "value": 0
+    },
+    {
+        "currency": {
             "address": "-",
             "decimals": 0,
             "name": "Matic",
@@ -35,18 +47,18 @@ const tokens = [
         },
         "value": 0
     },
-    {
-        "currency": {
-            "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
-            "decimals": 0,
-            "name": "USD Coin (PoS)",
-            "properties": null,
-            "symbol": "USDC",
-            "tokenId": "0",
-            "tokenType": "ERC20"
-        },
-        "value": 0
-    },
+    // {
+    //     "currency": {
+    //         "address": "0x2791bca1f2de4661ed88a30c99a7a9449aa84174",
+    //         "decimals": 0,
+    //         "name": "USD Coin (PoS)",
+    //         "properties": null,
+    //         "symbol": "USDC",
+    //         "tokenId": "0",
+    //         "tokenType": "ERC20"
+    //     },
+    //     "value": 0
+    // },
     {
         "currency": {
             "address": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",

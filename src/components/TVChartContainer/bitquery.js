@@ -169,12 +169,12 @@ export const GET_TOKEN_PRICE = (address, now, second, third, fourth, fifth, sixt
   `
 }
 
-export const GET_TOKEN_HOLDERS = (tokenAddress) => {
+export const GET_TOKEN_HOLDERS = (tokenAddress, date) => {
   return `
     {
       EVM(network: matic, dataset: archive) {
         TokenHolders(
-          date: "2024-08-01"
+          date: "${date}"
           tokenSmartContract: "${tokenAddress}"
           limit: { count: 10 }
           orderBy: { descending: Balance_Amount }

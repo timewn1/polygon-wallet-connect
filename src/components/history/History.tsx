@@ -7,7 +7,7 @@ import Td from '../tables/Td';
 import { GET_ALL_TRANSACTIONS, GET_TOKEN_HOLDERS, GET_TRANSACTIONS } from '../TVChartContainer/bitquery';
 import { callQuery } from '../../api/bitqueryApi';
 import { Link } from 'react-router-dom';
-import { formatAddress } from '../../utils/normal';
+import { formatAddress, getNowDate } from '../../utils/normal';
 
 const Tab = ({ text, active, handleClick, _className }: any) => {
     return (
@@ -145,7 +145,8 @@ const History = () => {
     }
 
     const getTokenHolders = async () => {
-        const query = GET_TOKEN_HOLDERS('0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270');   // WMATIC holders
+        // const query = GET_TOKEN_HOLDERS('0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270', getNowDate());   // WMATIC holders
+        const query = GET_TOKEN_HOLDERS('0x46979f433E741c74CDa6d8A58482c1f0148fe42f', getNowDate());   // SMD holders
         const result = await callQuery('eap', query);
 
         if (result?.data?.data?.EVM?.TokenHolders) {

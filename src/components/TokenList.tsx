@@ -101,7 +101,7 @@ const TokenList = () => {
         if (Logos[filterAddress]) {
             return Logos[filterAddress];
         } else {
-            return '/img/default-coin.png';
+            return '/img/default-token.png';
         }
     }
 

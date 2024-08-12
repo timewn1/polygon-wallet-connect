@@ -44,6 +44,27 @@ const Header = () => {
             }
 
             const filterdTokens = walletData.balances?.filter((e: any) => e.value > 0);
+            const tokenOrder = TOKENS.reduce((acc: any, token: any, index: number) => {
+                acc[token.currency.address] = index;
+                return acc;
+            }, {});
+            filterdTokens.sort((a: any, b: any) => {
+                const orderA = tokenOrder[a.currency.address];
+                const orderB = tokenOrder[b.currency.address];
+            
+                if (orderA === undefined && orderB === undefined) {
+                    return 0;
+                }
+                if (orderA === undefined) {
+                    return 1;
+                }
+                if (orderB === undefined) {
+                    return -1;
+                }
+            
+                return orderA - orderB;
+            });
+
             dispatch(walletStore.setTokens(filterdTokens));
         }
     }
@@ -67,7 +88,7 @@ const Header = () => {
                     <div className="text-2xl font-[700] text-white flex justify-start gap-4 items-center">
                         <img src='/img/logo2.svg' alt='logo' />
                         <span className="hover:cursor-pointer">Smart Dangol</span>
-                        <img className="h-[50px] hover:cursor-pointer" src='/img/google-play.png' alt='' />
+                        {/* <img className="h-[50px] hover:cursor-pointer" src='/img/google-play.png' alt='' /> */}
                     </div>
                     <div>
                         <ConnectButton text={!address ? 'Connect Wallet' : 'Disconnect'} handleClick={handleClick} />

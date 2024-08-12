@@ -12,7 +12,7 @@ interface DataPoint {
 const CanvaChart: React.FC = () => {
     const [dataPoints, setDataPoints] = useState<DataPoint[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [days, setDays] = useState(1);
+    const [days, setDays] = useState(30);
 
     const handleButtonClick = (daysValue: any) => {
         setDays(daysValue);
