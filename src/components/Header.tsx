@@ -49,7 +49,6 @@ const Header = () => {
                     acc[token.currency.address] = index;
                     return acc;
                 }, {});
-                console.log('filterdTokens = ', filterdTokens);
                 filterdTokens.sort((a: any, b: any) => {
                     const orderA = tokenOrder[a.currency.address];
                     const orderB = tokenOrder[b.currency.address];

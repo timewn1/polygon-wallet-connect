@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useAccount } from 'wagmi';
 
 import { RootState } from '../store';
-
-import { useAccount } from 'wagmi';
 
 import Container from '../components/Container';
 import TokenList from '../components/TokenList';
 import History from '../components/history/History';
-import TVChartContainer from '../components/TVChartContainer';
-import {App as Chart} from '../components/LightweightChart';
-import { GooogleChart } from '../components/GoogleChart';
 import CanvaChart from '../components/CanvaChart';
 
 const Home = () => {
@@ -71,6 +67,9 @@ const Home = () => {
                             <div className='w-[35%] pl-10 overflow-hidden flex gap-10 relative'>
                                  <div className={`min-w-full transition-transform duration-500 ease-in-out ${feedSlip ? 'translate-x-[-150%]' : ''}`}>
                                     <img src="https://alternative.me/crypto/fear-and-greed-index.png" alt="Latest Crypto Fear & Gred Index" className='w-[300px]' />
+                                    <a href='https://smart-dangol-coin.gitbook.io/smd-coin-whitepaper' target='blank'>
+                                        <img className='w-[300px] mt-5' src='/img/whitepaper.jpg' alt='whitepaper' />
+                                    </a>
                                 </div>
                                 <div className={`min-w-full transition-transform duration-500 ease-in-out ${feedSlip ? 'translate-x-[-110%]' : ''}`}>
                                     {/* <iframe width="300" height="500" src="https://rss.app/embed/v1/list/tIx8B8dO8tQ18sP8" className='border-none'></iframe> */}

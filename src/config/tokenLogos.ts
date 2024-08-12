@@ -1,4 +1,5 @@
 const Logos = {
+    "0x46979f433e741c74cda6d8a58482c1f0148fe42f": "/img/smd.png",
     "0x7ceb23fd6bc0add59e62ac25578270cff1b9f619": "https://assets.polygon.technology/tokenAssets/eth.svg",
     "0x0000000000000000000000000000000000001010": "https://assets.polygon.technology/tokenAssets/matic.svg",
     "0x2791bca1f2de4661ed88a30c99a7a9449aa84174": "https://assets.polygon.technology/tokenAssets/usdc.svg",

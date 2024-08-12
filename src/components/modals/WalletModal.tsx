@@ -1,8 +1,60 @@
-import * as React from 'react'
-import { Connector, useConnect } from 'wagmi'
+import React, { useState, useEffect } from 'react'
+import { Connector, useConnect, useAccount } from 'wagmi';
+import { BrowserProvider } from 'ethers';
 
-export function WalletModal({close}: any) {
+export function WalletModal({ close }: any) {
+  const {address} = useAccount();
   const { connectors, connect } = useConnect();
+
+  const switchToPolygon = async () => {
+    const provider = new BrowserProvider(window.ethereum);
+    const network = await provider.getNetwork();
+    const polygonChainId = BigInt(137);
+
+    if (network.chainId !== polygonChainId) {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_switchEthereumChain',
+          params: [{ chainId: '0x89' }],
+        });
+      } catch (switchError: any) {
+        if (switchError.code === 4902) {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_addEthereumChain',
+              params: [
+                {
+                  chainId: '0x89',
+                  chainName: 'Polygon Mainnet',
+                  nativeCurrency: {
+                    name: 'MATIC',
+                    symbol: 'MATIC',
+                    decimals: 18,
+                  },
+                  rpcUrls: ['https://polygon-rpc.com/'],
+                  blockExplorerUrls: ['https://polygonscan.com/'],
+                },
+              ],
+            });
+          } catch (addError) {
+            console.error('Failed to add the Polygon network to MetaMask', addError);
+          }
+        } else {
+          console.error('Failed to switch to the Polygon network', switchError);
+        }
+      }
+    }
+  };
+
+  useEffect(() => {
+    const connectWallet = async () => {
+      switchToPolygon();
+    };
+
+    if (address) {
+      connectWallet();
+    }
+  }, [address])
 
   return (
     <div className="overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-screen max-h-full bg-black/20">
@@ -22,12 +74,12 @@ export function WalletModal({close}: any) {
           <div className="p-4 md:p-5 flex flex-col w-full gap-1">
             {
               connectors.map((connector) => (
-                connector.type !== 'injected' && 
-                  <WalletOption
-                    key={connector.uid}
-                    connector={connector}
-                    onClick={() => connect({ connector })}
-                  />
+                connector.type !== 'injected' &&
+                <WalletOption
+                  key={connector.uid}
+                  connector={connector}
+                  onClick={() => connect({ connector })}
+                />
               ))
             }
           </div>
@@ -44,9 +96,9 @@ function WalletOption({
   connector: Connector
   onClick: () => void
 }) {
-  const [ready, setReady] = React.useState(false)
+  const [ready, setReady] = useState(false)
 
-  React.useEffect(() => {
+  useEffect(() => {
     ; (async () => {
       const provider = await connector.getProvider()
       setReady(!!provider)

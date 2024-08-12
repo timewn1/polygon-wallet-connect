@@ -1,7 +1,7 @@
 const tokens = [
     {
         "currency": {
-            "address": "0xfb1075651706274D49B29dDbA8fFc4F2CB0723AA",
+            "address": "0x46979f433E741c74CDa6d8A58482c1f0148fe42f",
             "decimals": 0,
             "name": "Smart Dangol Coin",
             "properties": null,

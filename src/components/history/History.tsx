@@ -8,15 +8,16 @@ import { GET_ALL_TRANSACTIONS, GET_TOKEN_HOLDERS, GET_TRANSACTIONS } from '../TV
 import { callQuery } from '../../api/bitqueryApi';
 import { Link } from 'react-router-dom';
 import { formatAddress, getNowDate } from '../../utils/normal';
+import TokenTransfer from '../TokenTransfer';
 
-const Tab = ({ text, active, handleClick, _className }: any) => {
+const Tab = ({ text, active, value, handleClick, _className }: any) => {
     return (
         <div
-            className={`text-[1.2em] cursor-pointer pb-2 font-medium ${active
+            className={`text-[1.2em] cursor-pointer pb-2 font-medium ${value === active
                 ? " text-[#000000]"
                 : " text-[#B9B9B9]"
                 } ${_className ? _className : ''}`}
-            onClick={() => handleClick()}
+            onClick={() => handleClick(value)}
         >
             {text}
         </div>
@@ -106,7 +107,7 @@ const TokenHolders = ({ holders }: any) => {
 const History = () => {
     const { address } = useAccount();
 
-    const [activeTab, setActiveTab] = useState(true);
+    const [activeTab, setActiveTab] = useState(0);
     const [tokenHolders, setTokenHolders] = useState([]);
     const [transactions, setTransactions] = useState<any>([]);
 
@@ -155,9 +156,9 @@ const History = () => {
     }
 
     useEffect(() => {
-        if (activeTab) {
+        if (activeTab === 1) {
             getTokenHolders();
-        } else {
+        } else if(activeTab === 2) {
             if (address) {
                 // getTransaction('0xad8fbf8291a5b1d768f26a770a82308840953f77');
                 getTransaction(address);
@@ -171,8 +172,9 @@ const History = () => {
         <div className="flex flex-col">
             <div className='flex justify-between'>
                 <div className={"flex gap-[30px] sm:gap-[30px]"}>
-                    <Tab text="Top Holder" active={activeTab} handleClick={() => setActiveTab(true)} />
-                    <Tab text="Transaction History" active={!activeTab} handleClick={() => setActiveTab(false)} />
+                    <Tab text="Transfer SMD" active={activeTab} value={0} handleClick={setActiveTab} />
+                    <Tab text="Top Holder" active={activeTab} value={1} handleClick={setActiveTab} />
+                    <Tab text="Transaction History" active={activeTab} value={2} handleClick={setActiveTab} />
                 </div>
                 {/* <div className='flex gap-5'>
                     <div  className='flex gap-5 items-center cursor-pointer'>
@@ -197,9 +199,13 @@ const History = () => {
                 <div className="p-1.5 min-w-full inline-block align-middle">
                     <div className="overflow-auto max-h-[350px]">
                         {
-                            activeTab ?
-                                <TokenHolders holders={tokenHolders} /> :
-                                <Transactions transactions={transactions} />
+                            activeTab === 0 && <TokenTransfer />
+                        }
+                        {
+                            activeTab === 1 && <TokenHolders holders={tokenHolders} />
+                        }
+                        {
+                            activeTab === 2 && <Transactions transactions={transactions} />
                         }
                     </div>
                 </div>

@@ -53,7 +53,6 @@ export async function fetchMaticPrices(baseCurrency: string, quoteCurrency: stri
     });
 
     const data = await response.json();
-    console.log(data);
     return data.data?.ethereum?.dexTrades?.map((trade: any) => ({
         time: trade.timeInterval?.second, 
         open: trade.open, 
