@@ -7,6 +7,13 @@ declare namespace JSX {
             width?: string;
             height?: string;
         };
+        'gecko-coin-price-marquee-widget': {
+            locale?: string;
+            outlined?: string;
+            'initial-currency'?: string;
+            width?: string;
+            height?: string;
+        };
     }
 }
 

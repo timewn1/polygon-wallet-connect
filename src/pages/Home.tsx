@@ -86,6 +86,9 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+                <div className='w-full mt-2 mb-5'>
+                    <gecko-coin-price-marquee-widget locale="en" outlined="true" coin-ids="" initial-currency="usd" width="100%"></gecko-coin-price-marquee-widget>
+                </div>
             </Container>
         </div>
     )
