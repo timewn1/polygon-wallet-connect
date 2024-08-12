@@ -44,28 +44,33 @@ const Header = () => {
             }
 
             const filterdTokens = walletData.balances?.filter((e: any) => e.value > 0);
-            const tokenOrder = TOKENS.reduce((acc: any, token: any, index: number) => {
-                acc[token.currency.address] = index;
-                return acc;
-            }, {});
-            filterdTokens.sort((a: any, b: any) => {
-                const orderA = tokenOrder[a.currency.address];
-                const orderB = tokenOrder[b.currency.address];
-            
-                if (orderA === undefined && orderB === undefined) {
-                    return 0;
-                }
-                if (orderA === undefined) {
-                    return 1;
-                }
-                if (orderB === undefined) {
-                    return -1;
-                }
-            
-                return orderA - orderB;
-            });
-
-            dispatch(walletStore.setTokens(filterdTokens));
+            if (filterdTokens) {
+                const tokenOrder = TOKENS.reduce((acc: any, token: any, index: number) => {
+                    acc[token.currency.address] = index;
+                    return acc;
+                }, {});
+                console.log('filterdTokens = ', filterdTokens);
+                filterdTokens.sort((a: any, b: any) => {
+                    const orderA = tokenOrder[a.currency.address];
+                    const orderB = tokenOrder[b.currency.address];
+                
+                    if (orderA === undefined && orderB === undefined) {
+                        return 0;
+                    }
+                    if (orderA === undefined) {
+                        return 1;
+                    }
+                    if (orderB === undefined) {
+                        return -1;
+                    }
+                
+                    return orderA - orderB;
+                });
+    
+                dispatch(walletStore.setTokens(filterdTokens));
+            } else {
+                dispatch(walletStore.setTokens(TOKENS));
+            }
         }
     }
 
