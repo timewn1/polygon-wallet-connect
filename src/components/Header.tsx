@@ -45,15 +45,13 @@ const Header = () => {
 
             const filterdTokens = walletData.balances?.filter((e: any) => e.value > 0);
             if (filterdTokens) {
-                console.log('filterdTokens = ', filterdTokens);
-                
                 const tokenOrder = TOKENS.reduce((acc: any, token: any, index: number) => {
-                    acc[token.currency.address] = index;
+                    acc[token.currency.address.toLowerCase()] = index;
                     return acc;
                 }, {});
                 filterdTokens.sort((a: any, b: any) => {
-                    const orderA = tokenOrder[a.currency.address];
-                    const orderB = tokenOrder[b.currency.address];
+                    const orderA = tokenOrder[a.currency.address.toLowerCase()];
+                    const orderB = tokenOrder[b.currency.address.toLowerCase()];
                 
                     if (orderA === undefined && orderB === undefined) {
                         return 0;
