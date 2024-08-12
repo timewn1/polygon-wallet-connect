@@ -45,6 +45,8 @@ const Header = () => {
 
             const filterdTokens = walletData.balances?.filter((e: any) => e.value > 0);
             if (filterdTokens) {
+                console.log('filterdTokens = ', filterdTokens);
+                
                 const tokenOrder = TOKENS.reduce((acc: any, token: any, index: number) => {
                     acc[token.currency.address] = index;
                     return acc;
