@@ -88,13 +88,13 @@ const Header = () => {
         <div className="h-[60px] shadow-md fixed w-screen top-0 left-0 bg-gradient-to-r from-[#1A846D] to-[#3B9CB7] z-20">
             <Container>
                 <div className="flex justify-between items-center h-full relative">
-                    <div className="text-[24px] font-bold text-white absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">Wallet Dashboard</div>
+                    <div className="xl:block hidden text-[24px] font-bold text-white absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">Wallet Dashboard</div>
                     <div className="text-2xl font-[700] text-white flex justify-start gap-4 items-center">
                         <img src='/img/logo2.svg' alt='logo' />
                         <span className="hover:cursor-pointer">Smart Dangol</span>
                         {/* <img className="h-[50px] hover:cursor-pointer" src='/img/google-play.png' alt='' /> */}
                     </div>
-                    <div>
+                    <div className='xl:block hidden'>
                         <ConnectButton text={!address ? 'Connect Wallet' : 'Disconnect'} handleClick={handleClick} />
                     </div>
                 </div>

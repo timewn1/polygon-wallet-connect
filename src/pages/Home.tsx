@@ -36,7 +36,8 @@ const Home = () => {
     }, [address])
 
     return (
-        <div className="mt-[60px]">
+        <>
+        <div className="mt-[60px] hidden xl:block">
             <Container>
                 <div className='flex pt-10 text-center pb-6'>
                     <div className="w-[25%] min-w-[380px]">
@@ -107,6 +108,10 @@ const Home = () => {
                 </div>
             </Container>
         </div>
+        <div className='pt-[160px] px-[30px] text-center font-bold text-[24px] flex xl:hidden w-full justify-center items-center'>
+            Please use Desktop Browser View to access
+        </div>
+        </>
     )
 }
 
