@@ -68,10 +68,11 @@ const TokenTransfer = () => {
             <div>
                 <h3 className='text-start text-18px font-bold'>How to transfer SMD</h3>
                 <p className='text-start leading-5'>1. Connect Metamask</p>
-                <p className='text-start leading-5'>2. Input correct address</p>
-                <p className='text-start leading-5'>3. Enter amount and press Transfer</p>
-                <p className='text-start leading-5'>3. Open and confirm in Metmask</p>
-                <img className='mt-2' src='/img/metamask-transaction.png' alt='metamask transaction' />
+                <p className='text-start leading-5'>2. Input correct address & amount</p>
+                <p className='text-start leading-5'>3. Check input</p>
+                <p className='text-start leading-5'>4. Open Metamask</p>
+                <p className='text-start leading-5'>5. Check address & confirm</p>
+                <img className='ml-5 mt-2 w-[105px]' src='/img/metamask-transaction.png' alt='metamask transaction' />
             </div>
             <div>
                 <h2 className='font-bold text-[16px]'>SMD</h2>
