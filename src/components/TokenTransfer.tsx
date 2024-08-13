@@ -53,7 +53,7 @@ const TokenTransfer = () => {
     }
 
     return (
-        <div className='flex justify-between gap-5 mt-2 mb-3'>
+        <div className='flex justify-between gap-5 mt-2 mb-3 pr-[55px]'>
             <div className='flex flex-col justify-start items-start'>
                 <div >
                     <p className='text-start'>Send to</p>

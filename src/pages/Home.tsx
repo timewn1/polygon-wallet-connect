@@ -13,8 +13,19 @@ const Home = () => {
     const { address } = useAccount();
     const [addressValue, setAddressValue] = useState('');
     const [feedSlip, setFeedSlip] = useState(false);
+    const [copied, setCopied] = useState(false);
 
     const balance = useSelector((state: RootState) => state.wallet.balance);
+
+    const copyAddress = async () => {
+        const _address = address as string;
+        await navigator.clipboard.writeText(_address);
+        setCopied(true);
+
+        setTimeout(() => {
+            setCopied(false);
+        }, 2000)
+    }
 
     useEffect(() => {
         if (address) {
@@ -31,8 +42,14 @@ const Home = () => {
                     <div className="w-[25%] min-w-[380px]">
                         {
                             address ? <>
-                                <p className='text-[1em] text-slate-400 text-left'>{'...' + addressValue.substring(addressValue.length - 10)}</p>   
-                            </> : 
+                                <p className='flex gap-2 items-center text-[1em] text-slate-400 text-left'>
+                                    {'...' + addressValue.substring(addressValue.length - 10)}
+                                    <span className='hover:bg-black/10 rounded-md cursor-pointer relative' onClick={copyAddress}>
+                                        <img className='w-5 h-5' src='/img/copy.svg' alt='copy' />
+                                        <span className={`absolute -left-[50%] -top-5 w-[60px] flex justify-center items-center text-[14px] text-black transition-all duration-400 ease-in-out ${copied ? 'opacity-100' : 'opacity-0'}`}>Copied!</span>
+                                    </span>
+                                </p>
+                            </> :
                             <p className="text-left">No connected</p>
                         }
                         <div className="flex flex-col items-center justify-start gap-2 mt-[60px]">
@@ -75,7 +92,7 @@ const Home = () => {
                                     {/* <iframe width="300" height="500" src="https://rss.app/embed/v1/list/tIx8B8dO8tQ18sP8" className='border-none'></iframe> */}
                                     <iframe width="300" height="500" src="https://rss.app/embed/v1/list/bjVfZH7h7j6I5yuO" className='border-none'></iframe>
                                 </div>
-                                <span className="absolute right-0 top-[40%] text-[50px] text-[#1A846D] z-50 hover:cursor-pointer hover:bg-black/5" onClick={() => {setFeedSlip(!feedSlip)}}>
+                                <span className="absolute right-0 top-[40%] text-[50px] text-[#1A846D] z-19 hover:cursor-pointer hover:bg-black/5" onClick={() => {setFeedSlip(!feedSlip)}}>
                                     <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" height="50px" width="50px" xmlns="http://www.w3.org/2000/svg"><path d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"></path></svg>
                                 </span>
                             </div>
