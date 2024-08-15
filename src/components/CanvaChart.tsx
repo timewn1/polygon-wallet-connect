@@ -86,15 +86,27 @@ const CanvaChart: React.FC = () => {
                 <p>Loading...</p>
             ) : (
                 <>
-                    <div className='flex justify-between items-center w-full'>
+                    <div className='flex justify-between items-center w-full pb-10 md:pb-3'>
                         <div className='text-[20px] font-semibold flex justify-between items-center pl-1 pr-2 gap-4'>
-                            <span className='font-bold text-[#353739]'>BTC/USD</span>
-                            <span className='text-[24px]'>${dataPoints[dataPoints.length - 1]?.y?.toFixed(4)}</span>
-                            <div className='flex'>
-                                <span className={`text-[16px] ${(dataPoints[dataPoints.length - 1].y - dataPoints[0].y) / dataPoints[0].y * 100  > 0 ? 'text-green-500' : 'text-red-500'}`}>{Math.abs((dataPoints[dataPoints.length - 1].y - dataPoints[0].y) / dataPoints[0].y * 100).toFixed(2)}%</span>
-                                <span className={`${(dataPoints[dataPoints.length - 1].y - dataPoints[0].y) / dataPoints[0].y * 100  > 0 ? 'text-green-500' : 'text-red-500  rotate-180 '}`}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24px" width="24px" viewBox="0 0 24 24" className="sc-4c05d6ef-0 dMwnWW"><path d="M18.0566 16H5.94336C5.10459 16 4.68455 14.9782 5.27763 14.3806L11.3343 8.27783C11.7019 7.90739 12.2981 7.90739 12.6657 8.27783L18.7223 14.3806C19.3155 14.9782 18.8954 16 18.0566 16Z"></path></svg>
-                                </span>
+                            <div className='md:flex md:gap-3 items-center'>
+                                <div className='flex items-center gap-3 '>
+                                    <div className='font-bold text-[#353739] md:text-[20px] text-[17px]'>BTC/USD</div>
+                                    <div className='flex md:hidden'>
+                                        <span className={`text-[16px] ${(dataPoints[dataPoints.length - 1].y - dataPoints[0].y) / dataPoints[0].y * 100  > 0 ? 'text-green-500' : 'text-red-500'}`}>{Math.abs((dataPoints[dataPoints.length - 1].y - dataPoints[0].y) / dataPoints[0].y * 100).toFixed(2)}%</span>
+                                        <span className={`${(dataPoints[dataPoints.length - 1].y - dataPoints[0].y) / dataPoints[0].y * 100  > 0 ? 'text-green-500' : 'text-red-500  rotate-180 '}`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24px" width="24px" viewBox="0 0 24 24" className="sc-4c05d6ef-0 dMwnWW"><path d="M18.0566 16H5.94336C5.10459 16 4.68455 14.9782 5.27763 14.3806L11.3343 8.27783C11.7019 7.90739 12.2981 7.90739 12.6657 8.27783L18.7223 14.3806C19.3155 14.9782 18.8954 16 18.0566 16Z"></path></svg>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className='flex items-center gap-2'>
+                                    <div className='md:text-[24px] text-[20px]'>${dataPoints[dataPoints.length - 1]?.y?.toFixed(4)}</div>
+                                    <div className='flex hidden'>
+                                        <span className={`text-[16px] ${(dataPoints[dataPoints.length - 1].y - dataPoints[0].y) / dataPoints[0].y * 100  > 0 ? 'text-green-500' : 'text-red-500'}`}>{Math.abs((dataPoints[dataPoints.length - 1].y - dataPoints[0].y) / dataPoints[0].y * 100).toFixed(2)}%</span>
+                                        <span className={`${(dataPoints[dataPoints.length - 1].y - dataPoints[0].y) / dataPoints[0].y * 100  > 0 ? 'text-green-500' : 'text-red-500  rotate-180 '}`}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="24px" width="24px" viewBox="0 0 24 24" className="sc-4c05d6ef-0 dMwnWW"><path d="M18.0566 16H5.94336C5.10459 16 4.68455 14.9782 5.27763 14.3806L11.3343 8.27783C11.7019 7.90739 12.2981 7.90739 12.6657 8.27783L18.7223 14.3806C19.3155 14.9782 18.8954 16 18.0566 16Z"></path></svg>
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className='flex justify-end items-center '>

@@ -13,7 +13,7 @@ import TokenTransfer from '../TokenTransfer';
 const Tab = ({ text, active, value, handleClick, _className }: any) => {
     return (
         <div
-            className={`text-[1.2em] cursor-pointer pb-2 font-medium ${value === active
+            className={`md:text-[1.2em] text-[13px] cursor-pointer pb-2 md:font-medium font-semibold ${value === active
                 ? " text-[#000000]"
                 : " text-[#B9B9B9]"
                 } ${_className ? _className : ''}`}
@@ -171,7 +171,7 @@ const History = () => {
     return (
         <div className="flex flex-col">
             <div className='flex justify-between'>
-                <div className={"flex gap-[30px] sm:gap-[30px]"}>
+                <div className={"flex gap-[30px] sm:gap-[30px] md:mt-0"}>
                     <Tab text="Transfer SMD" active={activeTab} value={0} handleClick={setActiveTab} />
                     <Tab text="Top Holder" active={activeTab} value={1} handleClick={setActiveTab} />
                     <Tab text="Transaction History" active={activeTab} value={2} handleClick={setActiveTab} />
@@ -196,8 +196,8 @@ const History = () => {
                 </div> */}
             </div>
             <div className="-m-1.5 overflow-x-auto mt-1">
-                <div className="p-1.5 min-w-full inline-block align-middle">
-                    <div className="overflow-auto max-h-[350px]">
+                <div className="md:p-1.5 min-w-full inline-block align-middle">
+                    <div className="overflow-auto md:max-h-[350px]">
                         {
                             activeTab === 0 && <TokenTransfer />
                         }

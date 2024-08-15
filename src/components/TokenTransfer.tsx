@@ -53,19 +53,21 @@ const TokenTransfer = () => {
     }
 
     return (
-        <div className='flex justify-between gap-5 mt-2 mb-3 pr-[55px]'>
-            <div className='flex flex-col justify-start items-start'>
-                <div >
+        <div className='md:flex md:justify-between justify-center gap-5 mt-2 mb-3 md:pr-[55px] pr-0 '>
+            <div className='flex flex-col md:justify-start justify-center items-start mx-5 md:mx-0'>
+                <div className='w-[100%] md:w-[auto]'>
                     <p className='text-start'>Send to</p>
-                    <input className='w-[240px] border rounded-md px-[10px] py-[7px] text-[16px] outline-none' type='text' placeholder='Enter address reciever' value={receiver} onChange={(e) => { setReceiver(e.target.value) }} />
+                    <input className='md:w-[240px]  w-[100%] border rounded-md px-[10px] py-[7px] text-[16px] outline-none' type='text' placeholder='Enter address reciever' value={receiver} onChange={(e) => { setReceiver(e.target.value) }} />
                 </div>
-                <div className='mt-4'>
+                <div className='mt-4 w-[100%] md:w-[auto]'>
                     <p className='text-start'>Amount</p>
-                    <input className='w-[240px] border rounded-md px-[10px] py-[7px] text-[16px] outline-none' type='text' placeholder='Enter SMD Amount' value={amount} onChange={(e) => { setAmount(e.target.value) }} />
+                    <input className='md:w-[240px] w-[100%] border rounded-md px-[10px] py-[7px] text-[16px] outline-none' type='text' placeholder='Enter SMD Amount' value={amount} onChange={(e) => { setAmount(e.target.value) }} />
                 </div>
-                <button className='mt-5 w-[150px] rounded-md px-[20px] font-bold py-[10px] bg-[#11D6B2] hover:bg-[#309e8a] text-white' onClick={transferSMD}>Transfer SMD</button>
+                <div className='w-[100%] md:w-[auto]'>
+                    <button className='mt-5 w-[150px] rounded-md px-[20px] font-bold py-[10px] bg-[#11D6B2] hover:bg-[#309e8a] text-white' onClick={transferSMD}>Transfer SMD</button>
+                </div>
             </div>
-            <div>
+            <div className='md:block hidden'>
                 <h3 className='text-start text-18px font-bold'>How to transfer SMD</h3>
                 <p className='text-start leading-5'>1. Connect Metamask</p>
                 <p className='text-start leading-5'>2. Input correct address & amount</p>
@@ -74,7 +76,7 @@ const TokenTransfer = () => {
                 <p className='text-start leading-5'>5. Check address & confirm</p>
                 <img className='ml-5 mt-2 w-[105px]' src='/img/metamask-transaction.png' alt='metamask transaction' />
             </div>
-            <div>
+            <div className='md:block md:mt-0 mt-10'>
                 <h2 className='font-bold text-[16px]'>SMD</h2>
                 <h3 className='font-bold text-[13px] -mt-1'>runs on</h3>
                 <div className='flex justify-center'>
