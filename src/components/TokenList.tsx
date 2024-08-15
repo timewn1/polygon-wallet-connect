@@ -106,7 +106,7 @@ const TokenList = () => {
     }
 
     return (
-        <div className='px-3 py-4 overflow-auto max-h-[600px]'>
+        <div className='px-3 py-4 overflow-auto max-h-[395px] md:max-h-[600px]'>
             {
                 tokens && tokens.length ?
                     tokens?.map((i: any, ind: number) => (

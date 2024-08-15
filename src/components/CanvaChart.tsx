@@ -18,6 +18,10 @@ const CanvaChart: React.FC = () => {
         setDays(daysValue);
     }
 
+    const getChatHeight = () => {
+        return window.innerWidth >= 768 ? '450' : '320';
+    };
+
     const generateDataPoints = async (_day: number) => {
         try {
             const url =
@@ -70,7 +74,9 @@ const CanvaChart: React.FC = () => {
         axisY: {
             includeZero: false,
         },
-        height: '450',
+        // height: '450',
+        height: getChatHeight(),
+
         data: [
             {
                 type: 'area',

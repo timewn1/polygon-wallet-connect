@@ -64,8 +64,8 @@ const Home = () => {
                             </div>
                         </div>
                         <div className="flex md:flex-col items-center md:justify-start justify-center gap-2 md:mt-[60px] mt-[35px]">
-                            <img src='/img/logo1.svg' width={50} height={50} alt="coin" />
-                            <h1 className='md:text-4xl text-[2em] '>$ {balance.toFixed(2)}</h1>
+                            <img src='/img/logo1.svg' width={50} height={50} alt="coin" className='md:w-[50px] md:h-[50px] w-[40px] h-[40px]'/>
+                            <h1 className='md:text-4xl text-[1.8em] '>$ {balance.toFixed(2)}</h1>
                             <button className={`md:hidden hover:cursor-pointer ${open ? " rotate-90 " : "rotate-0"} `} onClick={() => setOpen(!open)}>
                                 <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M294.1 256L167 129c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.3 34 0L345 239c9.1 9.1 9.3 23.7.7 33.1L201.1 417c-4.7 4.7-10.9 7-17 7s-12.3-2.3-17-7c-9.4-9.4-9.4-24.6 0-33.9l127-127.1z"></path></svg>
                             </button>
