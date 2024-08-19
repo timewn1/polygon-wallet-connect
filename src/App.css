@@ -7,17 +7,6 @@
   pointer-events: none;
 }
 
-@font-face {
-  font-family: 'SpaceGrotesk';
-  src: url('../public/font/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-* {
-  font-family: SpaceGrotesk !important;
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

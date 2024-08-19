@@ -4,11 +4,19 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+@font-face {
+  font-family: 'SpaceGrotesk';
+  src: url('../public/font/SpaceGrotesk-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: SpaceGrotesk !important;
 }
 
 code {
@@ -20,6 +28,16 @@ code {
   box-sizing: border-box !important;
 }
 
+.x-home {
+  background-image: url('/public/img/home-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.canvasjs-chart-credit {
+  display: none;
+}
 
 .chart {
   grid-area: chart;

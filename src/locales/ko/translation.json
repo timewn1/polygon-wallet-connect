@@ -1,0 +1,68 @@
+{
+    "Wallet Dashboard": "Wallet Dashboard",
+    "Connect Wallet": "Connect Wallet",
+    "Disconnect": "Disconnect",
+    "Loading": "Loading",
+
+    "English": "English",
+    "Korean": "Korean",
+    "EN": "EN",
+    "KO": "KO",
+
+    "1D": "1D",
+    "1W": "1W",
+    "1M": "1M",
+    "1Y": "1Y",
+
+    "Transfer SMD": "Transfer SMD",
+    "Top Holder": "Top Holder",
+    "Transaction History": "Transaction History",
+
+    "No List": "No List",
+    "No": "No",
+    "Address": "Address",
+    "Asset": "Asset",
+
+    "Hash": "Hash",
+    "Time": "Time",
+    "From": "From",
+    "To": "To",
+    "Gas": "Gas",
+    "Status": "Status",
+
+    "Close modal": "Close modal",
+
+    "Price": "Price",
+    "Holding": "Holding",
+    "No assets": "No assets",
+
+    "Please connect your wallet!": "Please connect your wallet!",
+    "Please input correct address!": "Please input correct address!",
+    "Please input correct amount!": "Please input correct amount!",
+    "Successfully transfered!": "Successfully transfered!",
+    "Transfer failed!": "Transfer failed!",
+
+    "Send to": "Send to",
+    "Amount": "Amount",
+
+    "How to transfer SMD": "How to transfer SMD",
+    "Connect Metamask": "Connect Metamask",
+    "Input correct address & amount": "Input correct address & amount",
+    "Check input": "Check input",
+    "Open Metamask": "Open Metamask",
+    "Check address & confirm": "Check address & confirm",
+
+    "Copied!": "Copied!",
+    "No connected": "No connected",
+    "Buy SMD": "Buy SMD",
+    "Assets": "Assets",
+
+    "START": "START",
+    "EARNING": "EARNING",
+    "WITH": "WITH",
+    "Coin": "Coin",
+    "Community": "Community",
+    "Decentral": "Decentral",
+    "for you": "for you",
+    "Connect": "Connect"
+}

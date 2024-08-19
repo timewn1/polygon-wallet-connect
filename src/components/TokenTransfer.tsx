@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ethers, parseUnits } from 'ethers';
+import { useTranslation } from 'react-i18next';
 
 import SMD from '../blockchain/smd.json';
 
@@ -7,6 +8,8 @@ import { useEthersSigner } from '../blockchain/ethers';
 import { toast } from 'react-toastify';
 
 const TokenTransfer = () => {
+    const { t } = useTranslation();
+
     const signer = useEthersSigner();
 
     const [receiver, setReceiver] = useState('');
@@ -15,15 +18,15 @@ const TokenTransfer = () => {
     const transferSMD = async () => {
         try {
             if (!signer) {
-                toast.info('Please connect your wallet!');
+                toast.info(t('Please connect your wallet!'));
                 return;
             }
             if (!receiver) {
-                toast.error("Please input correct address!");
+                toast.error(t("Please input correct address!"));
                 return;
             }
             if (!amount) {
-                toast.error("Please input correct amount!");
+                toast.error(t("Please input correct amount!"));
                 return;
             }
 
@@ -35,20 +38,20 @@ const TokenTransfer = () => {
                     const receipt = await tx.wait();
 
                     if (receipt.status === 1) {
-                        toast.success('Successfully transfered!');
+                        toast.success(t('Successfully transfered!'));
 
                         setAmount('0');
                         setReceiver('');
                     } else {
-                        toast.error("Transfer failed!");
+                        toast.error(t("Transfer failed!"));
                     }
                 } else {
-                    toast.error("Transfer failed!");
+                    toast.error(t("Transfer failed!"));
                 }
             }
         } catch (err) {
             console.error(err);
-            toast.error("Transfer failed!");
+            toast.error(t("Transfer failed!"));
         }
     }
 
@@ -56,24 +59,24 @@ const TokenTransfer = () => {
         <div className='md:flex md:justify-between justify-center gap-5 mt-2 mb-3 md:pr-[55px] pr-0 '>
             <div className='flex flex-col md:justify-start justify-center items-start mx-5 md:mx-0'>
                 <div className='w-[100%] md:w-[auto]'>
-                    <p className='text-start'>Send to</p>
+                    <p className='text-start'>{t('Send to')}</p>
                     <input className='md:w-[240px]  w-[100%] border rounded-md px-[10px] py-[7px] text-[16px] outline-none' type='text' placeholder='Enter address reciever' value={receiver} onChange={(e) => { setReceiver(e.target.value) }} />
                 </div>
                 <div className='mt-4 w-[100%] md:w-[auto]'>
-                    <p className='text-start'>Amount</p>
+                    <p className='text-start'>{t('Amount')}</p>
                     <input className='md:w-[240px] w-[100%] border rounded-md px-[10px] py-[7px] text-[16px] outline-none' type='text' placeholder='Enter SMD Amount' value={amount} onChange={(e) => { setAmount(e.target.value) }} />
                 </div>
                 <div className='w-[100%] md:w-[auto]'>
-                    <button className='mt-5 w-[150px] rounded-md px-[20px] font-bold py-[10px] bg-[#11D6B2] hover:bg-[#309e8a] text-white' onClick={transferSMD}>Transfer SMD</button>
+                    <button className='mt-5 w-[150px] rounded-md px-[20px] font-bold py-[10px] bg-[#11D6B2] hover:bg-[#309e8a] text-white' onClick={transferSMD}>{t('Transfer SMD')}</button>
                 </div>
             </div>
             <div className='md:block hidden'>
-                <h3 className='text-start text-18px font-bold'>How to transfer SMD</h3>
-                <p className='text-start leading-5'>1. Connect Metamask</p>
-                <p className='text-start leading-5'>2. Input correct address & amount</p>
-                <p className='text-start leading-5'>3. Check input</p>
-                <p className='text-start leading-5'>4. Open Metamask</p>
-                <p className='text-start leading-5'>5. Check address & confirm</p>
+                <h3 className='text-start text-18px font-bold'>{t('How to transfer SMD')}</h3>
+                <p className='text-start leading-5'>1. {t('Connect Metamask')}</p>
+                <p className='text-start leading-5'>2. {t('Input correct address & amount')}</p>
+                <p className='text-start leading-5'>3. {t('Check input')}</p>
+                <p className='text-start leading-5'>4. {t('Open Metamask')}</p>
+                <p className='text-start leading-5'>5. {t('Check address & confirm')}</p>
                 <img className='ml-5 mt-2 w-[105px]' src='/img/metamask-transaction.png' alt='metamask transaction' />
             </div>
             <div className='md:block md:mt-0 mt-10'>

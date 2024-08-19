@@ -8,10 +8,9 @@ import { ToastContainer } from 'react-toastify';
 import store from './store';
 
 import 'react-toastify/dist/ReactToastify.css';
-import './App.css';
 
+import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
-import Header from './components/Header';
 
 import { config } from './config/wagmi';
 
@@ -23,12 +22,10 @@ function App() {
       <Router>
         <WagmiProvider config={config}>
           <QueryClientProvider client={queryClient}>
-            <div>
-              <Header />
-              <Routes>
-                <Route path="/" element={<Home />} />
-              </Routes>
-            </div>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+            </Routes>
           </QueryClientProvider>
         </WagmiProvider>
         <ToastContainer position="top-right" />

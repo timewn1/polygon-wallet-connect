@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { RootState } from '../store';
 
@@ -14,6 +15,8 @@ import Logos from "../config/tokenLogos";
 import * as walletStore from '../store/wallet';
 
 const TokenList = () => {
+    const { t } = useTranslation();
+
     const dispatch = useDispatch();
 
     const [openId, setOpenId] = useState(-1);
@@ -126,11 +129,11 @@ const TokenList = () => {
                                 </div>
                                 <div className="flex justify-between gap-1">
                                     <div className="text-left">
-                                        <p className="text-slate-400">Price</p>
+                                        <p className="text-slate-400">{t('Price')}</p>
                                         <p className="max-w-[100px] text-nowrap overflow-hidden text-ellipsis hover:overflow-visible">${i.prices[i.prices.length - 1] === 0 ? i.prices[i.prices.length - 1].toFixed(2) : (i.prices[i.prices.length - 1] && i.prices[i.prices.length - 1].toFixed(6))}</p>
                                     </div>
                                     <div className="text-center">
-                                        <p className="text-slate-400 ">Holding</p>
+                                        <p className="text-slate-400 ">{t('Holding')}</p>
                                         <p className="max-w-[100px] text-nowrap overflow-hidden text-ellipsis hover:overflow-visible">{i.value}</p>
                                     </div>
                                     {
@@ -151,7 +154,7 @@ const TokenList = () => {
                                 </div>
                             </div>
                     )) :
-                    <div>No assets</div>
+                    <div>{t('No assets')}</div>
             }
         </div>
     )

@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useAccount, useDisconnect } from 'wagmi'
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import Container from './Container';
 import ConnectButton from './buttons/ConnectButton';
 import { WalletModal } from './modals/WalletModal';
 
-import { GET_TOKEN_LIST, GET_TOKENS_PRICE } from './TVChartContainer/bitquery';
+import { GET_TOKEN_LIST } from './TVChartContainer/bitquery';
 
 import * as walletStore from '../store/wallet';
 import TOKENS from '../config/tokens';
 
 import { callQuery } from '../api/bitqueryApi';
+import LanguageButton from './buttons/languageButton';
 
 const Header = () => {
+    const { t } = useTranslation();
+
     const dispatch = useDispatch();
 
     const { address } = useAccount();
@@ -52,7 +55,7 @@ const Header = () => {
                 filterdTokens.sort((a: any, b: any) => {
                     const orderA = tokenOrder[a.currency.address.toLowerCase()];
                     const orderB = tokenOrder[b.currency.address.toLowerCase()];
-                
+
                     if (orderA === undefined && orderB === undefined) {
                         return 0;
                     }
@@ -62,10 +65,10 @@ const Header = () => {
                     if (orderB === undefined) {
                         return -1;
                     }
-                
+
                     return orderA - orderB;
                 });
-    
+
                 dispatch(walletStore.setTokens(filterdTokens));
             } else {
                 dispatch(walletStore.setTokens(TOKENS));
@@ -82,19 +85,20 @@ const Header = () => {
         }
 
         setShowModal(false);
-    }, [address])
+    }, [address]);
 
     return (
         <div className="h-[60px] shadow-md fixed w-screen top-0 left-0 bg-gradient-to-r from-[#1A846D] to-[#3B9CB7] z-20">
             <Container>
                 <div className="flex justify-between items-center h-full relative">
-                    <div className="xl:block hidden text-[24px] font-bold text-white absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">Wallet Dashboard</div>
+                    <div className="xl:block hidden text-[24px] font-bold text-white absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">{t('Wallet Dashboard')}</div>
                     <div className="text-xl md:text-2xl font-[700] text-white flex justify-start gap-2 md:gap-4 items-center">
                         <img src='/img/logo2.svg' alt='logo' />
                         <span className="hover:cursor-pointer">Smart Dangol</span>
                         {/* <img className="h-[50px] hover:cursor-pointer" src='/img/google-play.png' alt='' /> */}
                     </div>
-                    <div className=''>
+                    <div className='flex justify-end items-center gap-3'>
+                        <LanguageButton />
                         <ConnectButton text={!address ? 'Connect Wallet' : 'Disconnect'} handleClick={handleClick} />
                     </div>
                 </div>

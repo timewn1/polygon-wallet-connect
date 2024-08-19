@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAccount } from 'wagmi';
+import { useTranslation } from 'react-i18next';
 
 import Th from '../tables/Th';
 import Td from '../tables/Td';
@@ -25,20 +26,22 @@ const Tab = ({ text, active, value, handleClick, _className }: any) => {
 }
 
 const Transactions = ({ transactions }: any) => {
+    const { t } = useTranslation();
+
     return (
         <>
             <table className="min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
                         <Th _className="items-center flex gap-2 justify-center">
-                            No
+                            {t('No')}
                         </Th>
-                        <Th>Hash</Th>
-                        <Th>Time</Th>
-                        <Th>From</Th>
-                        <Th>To</Th>
-                        <Th>Gas</Th>
-                        <Th>Status</Th>
+                        <Th>{t('Hash')}</Th>
+                        <Th>{t('Time')}</Th>
+                        <Th>{t('From')}</Th>
+                        <Th>{t('To')}</Th>
+                        <Th>{t('Gas')}</Th>
+                        <Th>{t('Status')}</Th>
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -71,16 +74,18 @@ const Transactions = ({ transactions }: any) => {
 }
 
 const TokenHolders = ({ holders }: any) => {
+    const { t } = useTranslation();
+
     return (
         <>
             <table className="min-w-full divide-y divide-gray-200">
                 <thead>
                     <tr>
                         <Th _className="items-center flex gap-2 justify-center">
-                            No
+                            {t('No')}
                         </Th>
-                        <Th>Address</Th>
-                        <Th>Asset</Th>
+                        <Th>{t('Address')}</Th>
+                        <Th>{t('Asset')}</Th>
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
@@ -99,12 +104,14 @@ const TokenHolders = ({ holders }: any) => {
                     }
                 </tbody>
             </table>
-            <p className="w-full text-center mt-3">{!holders.length && 'No List'}</p>
+            <p className="w-full text-center mt-3">{!holders.length && t('No List')}</p>
         </>
     )
 }
 
 const History = () => {
+    const { t } = useTranslation();
+
     const { address } = useAccount();
 
     const [activeTab, setActiveTab] = useState(0);
@@ -172,9 +179,9 @@ const History = () => {
         <div className="flex flex-col">
             <div className='flex justify-between'>
                 <div className={"flex gap-[30px] sm:gap-[30px] md:mt-0"}>
-                    <Tab text="Transfer SMD" active={activeTab} value={0} handleClick={setActiveTab} />
-                    <Tab text="Top Holder" active={activeTab} value={1} handleClick={setActiveTab} />
-                    <Tab text="Transaction History" active={activeTab} value={2} handleClick={setActiveTab} />
+                    <Tab text={t("Transfer SMD")} active={activeTab} value={0} handleClick={setActiveTab} />
+                    <Tab text={t("Top Holder")} active={activeTab} value={1} handleClick={setActiveTab} />
+                    <Tab text={t("Transaction History")} active={activeTab} value={2} handleClick={setActiveTab} />
                 </div>
                 {/* <div className='flex gap-5'>
                     <div  className='flex gap-5 items-center cursor-pointer'>
