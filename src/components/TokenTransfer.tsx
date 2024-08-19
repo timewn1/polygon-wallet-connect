@@ -56,7 +56,7 @@ const TokenTransfer = () => {
     }
 
     return (
-        <div className='md:flex md:justify-between justify-center gap-5 mt-2 mb-3 md:pr-[55px] pr-0 '>
+        <div className='md:flex md:justify-between justify-center gap-5 mt-2 mb-3 md:pr-[30px] pr-0 '>
             <div className='flex flex-col md:justify-start justify-center items-start mx-5 md:mx-0'>
                 <div className='w-[100%] md:w-[auto]'>
                     <p className='text-start'>{t('Send to')}</p>
