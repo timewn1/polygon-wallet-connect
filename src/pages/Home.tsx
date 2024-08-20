@@ -36,7 +36,7 @@ const Home = () => {
 
     return (
         <div className="w-screen h-screen x-home relative overflow-hidden">
-            <div className='absolute top-[30px] left-[30px]'>
+            <div className='absolute top-[15px] md:top-[25px] left-[15px] md:left-[25px]'>
                 <LanguageButton mode="dark" />
             </div>
             <div className="flex flex-col justify-start items-center gap-4 h-full mt-[50px]">

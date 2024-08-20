@@ -100,7 +100,7 @@ const Header = () => {
                         <span className="hover:cursor-pointer">Smart Dangol</span>
                         {/* <img className="h-[50px] hover:cursor-pointer" src='/img/google-play.png' alt='' /> */}
                     </div>
-                    <div className='flex justify-end items-center gap-3'>
+                    <div className='flex justify-end items-center gap-5'>
                         <LanguageButton />
                         <ConnectButton text={!address ? 'Connect Wallet' : 'Disconnect'} handleClick={handleClick} />
                     </div>
