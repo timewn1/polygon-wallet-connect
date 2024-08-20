@@ -35,8 +35,7 @@ const CanvaChart: React.FC = () => {
                 method: 'GET',
                 headers: {
                     accept: 'application/json',
-                    // "x-cg-demo-api-key": "CG-gai4uXMPd7obu5476wkDQi9A",
-                    "x-cg-demo-api-key": "CG-uyvBXnVrVSE2vJhjiaomsNaB",
+                    "x-cg-demo-api-key": process.env.REACT_APP_COINGECKO_KEY as string,
                     mode: 'no-cors'
                 },
             };

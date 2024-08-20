@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useAccount } from 'wagmi';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +15,7 @@ import CanvaChart from '../components/CanvaChart';
 
 const Dashboard = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const { address } = useAccount();
     const [addressValue, setAddressValue] = useState('');
@@ -37,7 +39,7 @@ const Dashboard = () => {
         if (address) {
             setAddressValue(address);
         } else {
-            setAddressValue('');
+            navigate('/');
         }
     }, [address])
 

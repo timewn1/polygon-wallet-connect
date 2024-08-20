@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAccount, useDisconnect } from 'wagmi'
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -17,6 +18,7 @@ import LanguageButton from './buttons/languageButton';
 
 const Header = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -38,6 +40,8 @@ const Header = () => {
         const query = GET_TOKEN_LIST(_address);
         // const query = GET_TOKEN_LIST('0xad8fbf8291a5b1d768f26a770a82308840953f77');
         const result = await callQuery('v1', query);
+
+        console.log('result = ', result)
 
         if (result && result.data?.data?.ethereum?.address[0]) {
             const walletData = result.data?.data?.ethereum?.address[0]
@@ -78,10 +82,9 @@ const Header = () => {
 
     useEffect(() => {
         if (address) {
-            dispatch(walletStore.setAddress(address));
             getTokenList(address);
         } else {
-            dispatch(walletStore.setTokens(TOKENS));
+            navigate('/');
         }
 
         setShowModal(false);

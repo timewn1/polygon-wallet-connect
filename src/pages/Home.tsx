@@ -1,11 +1,38 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { useAccount, useDisconnect } from 'wagmi';
 
 import LanguageButton from '../components/buttons/languageButton';
+import { WalletModal } from '../components/modals/WalletModal';
+
+import * as walletStore from '../store/wallet';
 
 const Home = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const { address, isConnected } = useAccount();
+    const { disconnect } = useDisconnect();
+
+    const [showModal, setShowModal] = useState(false);
+
+    const handleClick = () => {
+        if (isConnected) {
+            disconnect();
+        } else {
+            setShowModal(true);
+        }
+    }
+
+    useEffect(() => {
+        if (address) {
+            dispatch(walletStore.setAddress(address));
+            navigate('/dashboard');
+        }
+    }, [address])
 
     return (
         <div className="w-screen h-screen x-home relative overflow-hidden">
@@ -29,9 +56,12 @@ const Home = () => {
                         <p className='text-[20px] md:text-[24px] text-black'>100% {t('for you')}</p>
                     </div>
                 </div>
-                <Link to='/dashboard' className='bg-[#11D6B2] px-[60px] md:px-[100px] py-[10px] md:py-[15px] text-[20px] md:text-[24px] font-semibold mt-3 md:mt-7 rounded-full'>{t('Connect')}</Link>
+                <button className='bg-[#11D6B2] px-[60px] md:px-[100px] py-[10px] md:py-[15px] text-[20px] md:text-[24px] font-semibold mt-3 md:mt-7 rounded-full' onClick={handleClick}>{t('Connect')}</button>
                 <img src='/img/page.png' alt='page' className='w-auto max-w-none md:w-[80%] min-h-[60%] md:h-auto blur-[3px] mt-3' />
             </div>
+            {
+                showModal && <WalletModal close={() => setShowModal(false)} />
+            }
         </div>
     )
 }

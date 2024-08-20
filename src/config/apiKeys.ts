@@ -1,2 +1,2 @@
-export const BITQUERY_V1_KEY = 'BQYw6hAAjI5CuYU8txVyZnjFI3CGARXQ';
+export const BITQUERY_V1_KEY = process.env.REACT_APP_BITQUERY_KEY;
 export const BITQUERY_V2_KEY = 'ory_at_xAhWvHgIvAYAlA8WgDLw4xAD23O7veY3EY8qNG35e2o.WJ7v-evkAlbtFCD7WCxR6cKmO5aw5KbPTV9nboJGg5A';
