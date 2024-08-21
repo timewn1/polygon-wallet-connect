@@ -60,11 +60,11 @@ const TokenTransfer = () => {
             <div className='flex flex-col md:justify-start justify-center items-start mx-5 md:mx-0'>
                 <div className='w-[100%] md:w-[auto]'>
                     <p className='text-start'>{t('Send to')}</p>
-                    <input className='md:w-[240px]  w-[100%] border rounded-md px-[10px] py-[7px] text-[16px] outline-none' type='text' placeholder='Enter address reciever' value={receiver} onChange={(e) => { setReceiver(e.target.value) }} />
+                    <input className='md:w-[240px]  w-[100%] border rounded-md px-[10px] py-[7px] text-[16px] outline-none' type='text' placeholder={t('Enter address reciever')} value={receiver} onChange={(e) => { setReceiver(e.target.value) }} />
                 </div>
                 <div className='mt-4 w-[100%] md:w-[auto]'>
                     <p className='text-start'>{t('Amount')}</p>
-                    <input className='md:w-[240px] w-[100%] border rounded-md px-[10px] py-[7px] text-[16px] outline-none' type='text' placeholder='Enter SMD Amount' value={amount} onChange={(e) => { setAmount(e.target.value) }} />
+                    <input className='md:w-[240px] w-[100%] border rounded-md px-[10px] py-[7px] text-[16px] outline-none' type='text' placeholder={t('Enter SMD Amount')} value={amount} onChange={(e) => { setAmount(e.target.value) }} />
                 </div>
                 <div className='w-[100%] md:w-[auto]'>
                     <button className='mt-5 w-[150px] rounded-md px-[20px] font-bold py-[10px] bg-[#11D6B2] hover:bg-[#309e8a] text-white' onClick={transferSMD}>{t('Transfer SMD')}</button>
