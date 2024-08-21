@@ -73,11 +73,16 @@ const Header = () => {
                     return orderA - orderB;
                 });
 
+                let tokens = filterdTokens;
+
                 if(!filterdTokens.find((token: any) => token.currency.address.toLowerCase() === TOKENS[0].currency.address.toLowerCase())) {
-                    dispatch(walletStore.setTokens([TOKENS[0], ...filterdTokens]));
+                    tokens = [TOKENS[0], ...tokens];
                 }
 
-                dispatch(walletStore.setTokens(filterdTokens));
+                if(!filterdTokens.find((token: any) => token.currency.address.toLowerCase() === TOKENS[1].currency.address.toLowerCase())) {
+                    tokens.splice(1, 0, TOKENS[1])
+                }
+                dispatch(walletStore.setTokens(tokens));
             } else {
                 dispatch(walletStore.setTokens(TOKENS));
             }
