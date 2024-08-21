@@ -24,7 +24,7 @@ const LanguageButton = ({ mode }: any) => {
 
     return (
         <>
-            <button className={`relative bg-transparent border hover:bg-black/5 flex justify-center items-center rounded-full w-[35px] md:w-[40px] h-[35px] md:h-[40px] p-2 ${mode==='dark' ? "text-black border-black/50" : "text-white border-white"}`} onClick={() => { setOpenLang(!openLang) }}>
+            <button className={`relative bg-transparent hover:bg-black/5 flex justify-center items-center rounded-full w-[35px] md:w-[40px] h-[35px] md:h-[40px] p-2 ${mode==='dark' ? "text-black border-black/50" : "text-white border-white"}`} onClick={() => { setOpenLang(!openLang) }}>
                 {
                     language === 'en' ?  
                     <img src='/img/flag/us.svg' />:
