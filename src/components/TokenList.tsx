@@ -120,7 +120,7 @@ const TokenList = () => {
                                         <img src={getTokenLogo(i.currency.address)} alt="logo" width={43} height={43} className="w-[43px] h-[43px] rounded-full" onError={(event: any) => (event.target.src = '/img/default-coin.png')} />
                                         <div className="flex gap-4 items-center justify-between">
                                             <p className="max-w-[100px] text-[1.1em] font-medium text-start break-words">{i.currency.symbol}</p>
-                                            <p className="max-w-[100px] text-slate-400 break-words">{i.currency.name}</p>
+                                            <p className="max-w-[150px] text-slate-400 break-words">{i.currency.name}</p>
                                         </div>
                                     </div>
                                     <div className="flex">
@@ -149,7 +149,7 @@ const TokenList = () => {
                                             <p className="max-w-full text-[1.05em] font-medium text-start text-nowrap overflow-hidden text-ellipsis">{i.currency.symbol}</p>
                                             <p className="text-slate-400 text-nowrap overflow-hidden text-ellipsis text-start">{i.value}</p>
                                         </div>
-                                        <p className="max-w-[100px] text-slate-400 text-nowrap overflow-hidden text-ellipsis text-start">{i.currency.name}</p>
+                                        <p className="max-w-[150px] text-slate-400 text-nowrap overflow-hidden text-ellipsis text-start">{i.currency.name}</p>
                                     </div>
                                 </div>
                             </div>
