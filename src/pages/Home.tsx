@@ -41,7 +41,7 @@ const Home = () => {
             </div>
             <div className="flex flex-col justify-start items-center gap-4 h-full mt-[50px]">
                 <img src='/img/logo1.svg' alt='logo' className='w-[50px] md:w-[100px] h-[50px] md:h-[100px]' />
-                <h1 className='text-[36px] md:text-[80px] font-bold text-black leading-[50px] md:leading-[90px]'>{t('START')} <span className='text-[#11D6B2]'>{t('EARNING')}</span> <br />{t('WITH')} <span className='text-[#11D6B2]'>SMD</span>-{t('Coin')}!</h1>
+                <h1 className='text-[36px] md:text-[80px] font-bold text-black leading-[50px] md:leading-[90px] text-center'>{t('START')} <span className='text-[#11D6B2]'>{t('EARNING')}</span> <br />{t('WITH')} <span className='text-[#11D6B2]'>SMD</span>-{t('Coin')}!</h1>
                 <div className='flex flex-col md:flex-row justify-center gap-3 md:gap-5 items-start md:items-center'>
                     <div className='flex gap-2 items-center flex-start'>
                         <img src='/img/check.png' alt='check' className='w-[20px] md:w-[30px] h-[20px] md:h-[30px]' />
