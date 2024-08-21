@@ -81,11 +81,11 @@ const TokenTransfer = () => {
             </div>
             <div className='md:block md:mt-0 mt-10'>
                 <h2 className='font-bold text-[16px]'>SMD</h2>
-                <h3 className='font-bold text-[13px] -mt-1'>runs on</h3>
+                <h3 className='font-bold text-[13px] -mt-1'>{t('runs on')}</h3>
                 <div className='flex justify-center'>
                     <img className='-mt-3 ' src='/img/polygon.png' alt='polygon' />
                 </div>
-                <p className='text-[14px] font-semibold text-black/80'>Polygon (MATIC) required to transfer SMD</p>
+                <p className='text-[14px] font-semibold text-black/80'>{t('Polygon (MATIC) required to transfer SMD')}</p>
             </div>
         </div>
     )

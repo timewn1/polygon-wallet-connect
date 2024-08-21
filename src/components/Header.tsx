@@ -73,6 +73,10 @@ const Header = () => {
                     return orderA - orderB;
                 });
 
+                if(!filterdTokens.find((token: any) => token.currency.address.toLowerCase() === TOKENS[0].currency.address.toLowerCase())) {
+                    dispatch(walletStore.setTokens([TOKENS[0], ...filterdTokens]));
+                }
+
                 dispatch(walletStore.setTokens(filterdTokens));
             } else {
                 dispatch(walletStore.setTokens(TOKENS));
@@ -97,7 +101,7 @@ const Header = () => {
                     <div className="xl:block hidden text-[24px] font-bold text-white absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%]">{t('Wallet Dashboard')}</div>
                     <div className="text-xl md:text-2xl font-[700] text-white flex justify-start gap-2 md:gap-4 items-center">
                         <img src='/img/logo2.svg' alt='logo' />
-                        <span className="hover:cursor-pointer">Smart Dangol</span>
+                        <span className="hover:cursor-pointer">{t('Smart Dangol')}</span>
                         {/* <img className="h-[50px] hover:cursor-pointer" src='/img/google-play.png' alt='' /> */}
                     </div>
                     <div className='flex justify-end items-center gap-5'>
