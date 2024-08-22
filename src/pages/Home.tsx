@@ -9,6 +9,7 @@ import { WalletModal } from '../components/modals/WalletModal';
 
 import * as walletStore from '../store/wallet';
 
+
 const Home = () => {
     const { t } = useTranslation();
     const navigate = useNavigate();
