@@ -39,7 +39,7 @@ const TokenTransfer = () => {
 
                 console.log('balance = ', Number(formatUnits(balance, 18)));
 
-                if (!Number(amount) && Number(formatUnits(balance, 18)) >= Number(amount)) {
+                if (Number(amount) && Number(formatUnits(balance, 18)) >= Number(amount)) {
                     const tx = await tokenContract.transfer(receiver, parseUnits(amount, 18));
                     const receipt = await tx.wait();
 
