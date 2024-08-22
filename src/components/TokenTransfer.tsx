@@ -30,24 +30,22 @@ const TokenTransfer = () => {
                 return;
             }
 
-            if (receiver && amount) {
-                const tokenContract = new ethers.Contract(SMD.address, SMD.abi, signer);
+            const tokenContract = new ethers.Contract(SMD.address, SMD.abi, signer);
 
-                if (tokenContract) {
-                    const tx = await tokenContract.transfer(receiver, parseUnits(amount, 18));
-                    const receipt = await tx.wait();
+            if (tokenContract) {
+                const tx = await tokenContract.transfer(receiver, parseUnits(amount, 18));
+                const receipt = await tx.wait();
 
-                    if (receipt.status === 1) {
-                        toast.success(t('Successfully transfered!'));
+                if (receipt.status === 1) {
+                    toast.success(t('Successfully transfered!'));
 
-                        setAmount('0');
-                        setReceiver('');
-                    } else {
-                        toast.error(t("Transfer failed!"));
-                    }
+                    setAmount('0');
+                    setReceiver('');
                 } else {
                     toast.error(t("Transfer failed!"));
                 }
+            } else {
+                toast.error(t("Transfer failed!"));
             }
         } catch (err) {
             console.error(err);

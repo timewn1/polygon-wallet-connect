@@ -3,11 +3,17 @@ import { Connector, useConnect, useAccount } from 'wagmi';
 import { BrowserProvider } from 'ethers';
 import { useTranslation } from 'react-i18next';
 
+const isMobileDevice = (): boolean => {
+  return /Mobi|Android/i.test(navigator.userAgent);
+};
+
 export function WalletModal({ close }: any) {
   const { t } = useTranslation();
 
-  const {address} = useAccount();
+  const { address } = useAccount();
   const { connectors, connect } = useConnect();
+
+  const isMobile = isMobileDevice();
 
   const switchToPolygon = async () => {
     const provider = new BrowserProvider(window.ethereum);
@@ -77,7 +83,7 @@ export function WalletModal({ close }: any) {
           <div className="p-4 lg:p-5 flex flex-col w-full gap-1">
             {
               connectors.map((connector) => (
-                connector.type !== 'injected' &&
+                connector.type !== 'injected' && (!isMobile || connector.type !== 'metaMask') &&
                 <WalletOption
                   key={connector.uid}
                   connector={connector}
