@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { ethers, parseUnits } from 'ethers';
+import { ethers, parseUnits, formatUnits } from 'ethers';
 import { useTranslation } from 'react-i18next';
 
 import SMD from '../blockchain/smd.json';
 
 import { useEthersSigner } from '../blockchain/ethers';
 import { toast } from 'react-toastify';
+import { useAccount } from 'wagmi';
 
 const TokenTransfer = () => {
     const { t } = useTranslation();
+    const { address } = useAccount();
 
     const signer = useEthersSigner();
 
@@ -33,16 +35,24 @@ const TokenTransfer = () => {
             const tokenContract = new ethers.Contract(SMD.address, SMD.abi, signer);
 
             if (tokenContract) {
-                const tx = await tokenContract.transfer(receiver, parseUnits(amount, 18));
-                const receipt = await tx.wait();
+                const balance = await tokenContract.balanceOf(address);
 
-                if (receipt.status === 1) {
-                    toast.success(t('Successfully transfered!'));
+                console.log('balance = ', Number(formatUnits(balance, 18)));
 
-                    setAmount('0');
-                    setReceiver('');
+                if (!Number(amount) && Number(formatUnits(balance, 18)) >= Number(amount)) {
+                    const tx = await tokenContract.transfer(receiver, parseUnits(amount, 18));
+                    const receipt = await tx.wait();
+
+                    if (receipt.status === 1) {
+                        toast.success(t('Successfully transfered!'));
+
+                        setAmount('0');
+                        setReceiver('');
+                    } else {
+                        toast.error(t("Transfer failed!"));
+                    }
                 } else {
-                    toast.error(t("Transfer failed!"));
+                    toast.error(t("SMD balance is not enough!"));
                 }
             } else {
                 toast.error(t("Transfer failed!"));

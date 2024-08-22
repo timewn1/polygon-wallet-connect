@@ -172,7 +172,7 @@ export const GET_TOKEN_PRICE = (address, now, second, third, fourth, fifth, sixt
 export const GET_TOKEN_HOLDERS = (tokenAddress, date) => {
   return `
     {
-      EVM(network: matic, dataset: archive) {
+      EVM(network: matic, dataset: realtime) {
         TokenHolders(
           date: "${date}"
           tokenSmartContract: "${tokenAddress}"

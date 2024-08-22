@@ -56,7 +56,11 @@ const Home = () => {
                         <p className='text-[20px] md:text-[24px] text-black'>100% {t('for you')}</p>
                     </div>
                 </div>
-                <button className='bg-[#11D6B2] px-[60px] md:px-[100px] py-[10px] md:py-[15px] text-[20px] md:text-[24px] font-semibold mt-3 md:mt-7 rounded-full' onClick={handleClick}>{t('Connect')}</button>
+                <button className='bg-[#11D6B2] w-[250px] md:w-[350px] min-h-[45px] h-[45px] md:min-h-[56px] md:h-[56px] flex justify-center items-center text-[20px] md:text-[24px] font-semibold mt-3 md:mt-7 rounded-full' onClick={handleClick}>{t('Connect')}</button>
+                <div className='mt-[10px] md:mt-[10px] w-[250px] md:w-[350px] flex justify-between items-center gap-[5px] md:gap-[10px]'>
+                    <a href='https://smart-dangol-coin.gitbook.io/smd-coin-whitepaper' target='blank'><img src='/img/whitepaper-1.png' alt='whitepaper' className='w-[120px] md:w-[170px]' /></a>
+                    <a href='https://play.google.com/store/apps/details?id=kr.smartorder.dangol&hl=en_NZ' target='blank'><img src='/img/google-play-1.png' alt='googleplay' className='w-[120px] md:w-[170px]' /></a>
+                </div>
                 <img src='/img/page.png' alt='page' className='w-auto max-w-none md:w-[80%] min-h-[60%] md:h-auto blur-[3px] mt-3' />
             </div>
             {

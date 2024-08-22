@@ -72,5 +72,7 @@
     "Smart Dangol": "Smart Dangol",
 
     "Enter address reciever": "Enter address reciever",
-    "Enter SMD Amount": "Enter SMD Amount"
+    "Enter SMD Amount": "Enter SMD Amount",
+
+    "SMD balance is not enough!": "SMD balance is not enough!"
 }
